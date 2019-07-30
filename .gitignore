@@ -1,1 +1,6 @@
 NormalizedFace/
+venv/
+__pycache__/
+.vscode/
+
+*.txt
