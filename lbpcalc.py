@@ -1,5 +1,6 @@
 import numpy as np
 import cv2
+from matplotlib import pyplot as plt
 
 
 def isUniform(n, c):
@@ -122,7 +123,7 @@ class LBPCalc:
             self.lbpDeltas[size] = deltas
 
 
-    def lbp(self, rawImage, size):
+    def lbp(self, rawImage, size, xOffset=0, yOffset=0, step=1):
         """The LBP operator
 
         TODO: Longer decsription
@@ -130,6 +131,9 @@ class LBPCalc:
         Args:
             rawImage (TODO): The image to be processed
             size ((int, int)): The size of the operator
+            xOffset (int, optional): Starting pixel x offset
+            yOffset (int, optional): Starting pixel y offset
+            step (int, optional): Step size along a single axis
 
         Returns:
             TODO: The processed 16-bit image
@@ -142,17 +146,18 @@ class LBPCalc:
         h, w = img.shape[:2]
         deltas = self.lbpDeltas[size]
 
-        for x in range(w):
-            for y in range(h):
+        # TODO: Make sure that this is doing what it's supposed to
+        for x in range(xOffset, w, step):
+            for y in range(yOffset, h, step):
                 val = 0
                 c = int(img[y, x])
 
                 for j in range(len(deltas)):
                     d = deltas[j]
-                    xx = x + d[0]
-                    yy = y + d[1]
+                    xx = (x + d[0] * step) % w
+                    yy = (y + d[1] * step) % h
 
-                    col = 0 if xx < 0 or xx >= w or yy < 0 or yy >= h else int(img[yy, xx])
+                    col = int(img[yy, xx])
                     val += int(2 ** j) if col - c >= 0 else 0
 
                 img[y, x] = val
@@ -160,19 +165,22 @@ class LBPCalc:
         return img
     
 
-    def histogram(self, rawImage, size):
+    def histogram(self, rawImage, size, xOffset=0, yOffset=0, step=1):
         """Computes the LBPs of an image and generates a histogram of the
         calculated data
 
         Args:
             rawImage (TODO): The image to be processed
-            size ((int, int)): The size of the operator
+            size ((int, int)): The size of the LBP operator
+            xOffset (int, optional): Starting pixel x offset for the LBP operator
+            yOffset (int, optional): Starting pixel y offset for the LBP operator
+            step (int, optional): LBP operator step size along a single axis
 
         Returns:
             TODO: The calcualted histogram
         """
 
-        img = self.lbp(rawImage.copy(), size)
+        img = self.lbp(rawImage.copy(), size, xOffset=xOffset, yOffset=yOffset, step=step)
         p = size[0]
         h, w = img.shape[:2]
 
@@ -185,6 +193,9 @@ class LBPCalc:
                 index = reverseMapping[mapped]
                 
                 hist[index] += 1
+
+        # plt.bar([i for i in range(len(hist))], hist)
+        # plt.show()
 
         return hist
 
