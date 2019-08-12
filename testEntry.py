@@ -8,9 +8,9 @@ from lbpcalc import LBPCalc
 import data
 
 
-def trainModel(X, yTrain, yTest, C, gamma):
+def trainModel(X, yTrain, yTest, C, gamma, probability):
     # print("Fitting the model...")
-    clf = svm.SVC(kernel='rbf', C=C, gamma=gamma) # , verbose=True)
+    clf = svm.SVC(kernel='rbf', C=C, gamma=gamma, probability=probability) # , verbose=True)
     clf.fit(X, yTrain)
     # print("Model fitted")
 
@@ -40,10 +40,10 @@ def maattaHistogram(img):
 
 
 # Generating the histograms and savaing them in files
-print("Processing data...")
-data.getTrainingData("NormalizedFace", "train", "out3", maattaHistogram)
-data.getTrainingData("NormalizedFace", "test", "out3", maattaHistogram)
-print("Data processed")
+# print("Processing data...")
+# data.getTrainingData("NormalizedFace", "train", "out3", maattaHistogram)
+# data.getTrainingData("NormalizedFace", "test", "out3", maattaHistogram)
+# print("Data processed")
 
 print("Loading data...")
 X_train, y_train = data.getTrainingDataFromFile("out3", "train")
@@ -51,7 +51,4 @@ X_test, y_test = data.getTrainingDataFromFile("out3", "test")
 print("Data loaded")
 
 # TODO: Try to fit this
-trainModel(X_train, y_train, y_test, C=1e6, gamma=8e-12) # FAR = 0.29, FRR = 0.009
-trainModel(X_train, y_train, y_test, C=1e10, gamma=8e-12) # FAR = 0.31, FRR = 0.009
-trainModel(X_train, y_train, y_test, C=9e2, gamma=8e-12) # FAR = 0.37, FRR = 0.064
-trainModel(X_train, y_train, y_test, C=3e4, gamma=4e-9) # FAR = 0.27, FRR = 0.053
+# trainModel(X_train, y_train, y_test, C=8e3, gamma=4e-9, probability=True) # FAR = 0.195230, FRR = 0.083379
