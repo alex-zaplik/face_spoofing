@@ -123,7 +123,25 @@ class LBPCalc:
             self.lbpDeltas[size] = deltas
 
 
-    def lbp(self, rawImage, size, xOffset=0, yOffset=0, step=1):
+    def lbpOperator(self, img, x, y, w, h, deltas, step=1):
+        # TODO: Test this on some sample images to make sure it works fine
+        # Idea: Generate all posiible images and test agains them
+        
+        val = 0
+        c = int(img[y, x])
+
+        for j in range(len(deltas)):
+            d = deltas[j]
+            xx = (x + d[0] * step) % w
+            yy = (y + d[1] * step) % h
+
+            col = int(img[yy, xx])
+            val += int(2 ** j) if col - c >= 0 else 0
+
+        return val
+
+
+    def lbp(self, rawImage, size, windowSize=(-1, -1), xOffset=0, yOffset=0, step=1):
         """The LBP operator
 
         TODO: Longer decsription
@@ -131,6 +149,7 @@ class LBPCalc:
         Args:
             rawImage (TODO): The image to be processed
             size ((int, int)): The size of the operator
+            windowSize ((int, int)): The size of the part of the image that will be used in computation given as (height, width)
             xOffset (int, optional): Starting pixel x offset
             yOffset (int, optional): Starting pixel y offset
             step (int, optional): Step size along a single axis
@@ -143,35 +162,24 @@ class LBPCalc:
         r = size[1]
 
         img = rawImage.astype(np.uint16)
-        h, w = img.shape[:2]
+        (h, w) = img.shape[:2] if windowSize[0] == -1 and windowSize[1] == -1 else windowSize
         deltas = self.lbpDeltas[size]
 
-        # TODO: Make sure that this is doing what it's supposed to
         for x in range(xOffset, w, step):
             for y in range(yOffset, h, step):
-                val = 0
-                c = int(img[y, x])
-
-                for j in range(len(deltas)):
-                    d = deltas[j]
-                    xx = (x + d[0] * step) % w
-                    yy = (y + d[1] * step) % h
-
-                    col = int(img[yy, xx])
-                    val += int(2 ** j) if col - c >= 0 else 0
-
-                img[y, x] = val
+                img[y, x] = self.lbpOperator(img, x, y, w, h, deltas, step=step)
 
         return img
     
 
-    def histogram(self, rawImage, size, xOffset=0, yOffset=0, step=1):
+    def histogram(self, rawImage, size, windowSize=(-1, -1), xOffset=0, yOffset=0, step=1):
         """Computes the LBPs of an image and generates a histogram of the
         calculated data
 
         Args:
             rawImage (TODO): The image to be processed
             size ((int, int)): The size of the LBP operator
+            windowSize ((int, int)): The size of the part of the image that will be used in computation given as (height, width)
             xOffset (int, optional): Starting pixel x offset for the LBP operator
             yOffset (int, optional): Starting pixel y offset for the LBP operator
             step (int, optional): LBP operator step size along a single axis
@@ -180,7 +188,7 @@ class LBPCalc:
             TODO: The calcualted histogram
         """
 
-        img = self.lbp(rawImage.copy(), size, xOffset=xOffset, yOffset=yOffset, step=step)
+        img = self.lbp(rawImage.copy(), size, windowSize=windowSize, xOffset=xOffset, yOffset=yOffset, step=step)
         p = size[0]
         h, w = img.shape[:2]
 
