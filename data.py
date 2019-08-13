@@ -4,13 +4,19 @@ import random
 
 
 # Loading data
-def loadFromList(basePath, listFilePath, imageFolderPath, label, outPrefix, histFunc):
+def loadFromList(basePath, listFilePath, imageFolderPath, label, outPrefix, histFunc, grayscale):
     hists = []
     output = open(outPrefix + "_" + listFilePath, "w")
     clientTrainList = open(os.path.join(basePath, listFilePath), "r")
     for path in clientTrainList:
         fullPath = os.path.join(basePath, imageFolderPath, path.strip())
-        img = cv2.imread(fullPath, cv2.IMREAD_GRAYSCALE)
+        
+        img = false
+        if grayscale:
+            img = cv2.imread(fullPath, cv2.IMREAD_GRAYSCALE)
+        else:
+            img = cv2.imread(fullPath, cv2.IMREAD_COLOR)
+        
         hist = histFunc(img)
         output.write(str(hist) + '\n')
         hists.append([hist, label])

@@ -123,12 +123,11 @@ class LBPCalc:
             self.lbpDeltas[size] = deltas
 
 
-    def lbpOperator(self, img, x, y, w, h, deltas, step=1):
-        # TODO: Test this on some sample images to make sure it works fine
-        # Idea: Generate all posiible images and test agains them
+    def lbpOperator(self, img, x, y, w, h, deltas, extract=lambda c: c, step=1):
+        # TODO: Docstring
         
         val = 0
-        c = int(img[y, x])
+        c = int(extract(img[y, x]))
 
         for j in range(len(deltas)):
             d = deltas[j]
@@ -141,7 +140,7 @@ class LBPCalc:
         return val
 
 
-    def lbp(self, rawImage, size, windowSize=(-1, -1), xOffset=0, yOffset=0, step=1):
+    def lbp(self, rawImage, size, windowSize=(-1, -1), xOffset=0, yOffset=0, extract=lambda c: c, step=1):
         """The LBP operator
 
         TODO: Longer decsription
@@ -152,6 +151,7 @@ class LBPCalc:
             windowSize ((int, int)): The size of the part of the image that will be used in computation given as (height, width)
             xOffset (int, optional): Starting pixel x offset
             yOffset (int, optional): Starting pixel y offset
+            extract (TODO): Method of extracting color values from a pixel
             step (int, optional): Step size along a single axis
 
         Returns:
@@ -167,12 +167,12 @@ class LBPCalc:
 
         for x in range(xOffset, w, step):
             for y in range(yOffset, h, step):
-                img[y, x] = self.lbpOperator(img, x, y, w, h, deltas, step=step)
+                img[y, x] = self.lbpOperator(img, x, y, w, h, deltas, extract=extract, step=step)
 
         return img
     
 
-    def histogram(self, rawImage, size, windowSize=(-1, -1), xOffset=0, yOffset=0, step=1):
+    def histogram(self, rawImage, size, windowSize=(-1, -1), xOffset=0, yOffset=0, extract=lambda c: c, step=1):
         """Computes the LBPs of an image and generates a histogram of the
         calculated data
 
@@ -182,13 +182,14 @@ class LBPCalc:
             windowSize ((int, int)): The size of the part of the image that will be used in computation given as (height, width)
             xOffset (int, optional): Starting pixel x offset for the LBP operator
             yOffset (int, optional): Starting pixel y offset for the LBP operator
+            extract (TODO): Method of extracting color values from a pixel
             step (int, optional): LBP operator step size along a single axis
 
         Returns:
             TODO: The calcualted histogram
         """
 
-        img = self.lbp(rawImage.copy(), size, windowSize=windowSize, xOffset=xOffset, yOffset=yOffset, step=step)
+        img = self.lbp(rawImage.copy(), size, windowSize=windowSize, xOffset=xOffset, yOffset=yOffset, extract=extract, step=step)
         p = size[0]
         h, w = img.shape[:2]
 
