@@ -9,27 +9,39 @@ import numpy as np
 import data
 
 
-logfile = open("%s.log" % (str(datetime.now())
-        .replace(".", "-")
-        .replace(":", "-")
-        .replace(" ", "_")
-    ), "w")
+# TODO: Face normalization
+# TODO: Get access to databeses
+# TODO: Train and test the HSV/YCrCb method
+# TODO: Figure out a third method
+
+
+# logfile = open("%s.log" % (str(datetime.now())
+#         .replace(".", "-")
+#         .replace(":", "-")
+#         .replace(" ", "_")
+#     ), "w")
 
 
 def log(text="", end="\n"):
     print(text, end=end)
-    logfile.write(text + end)
-    logfile.flush()
+    # logfile.write(text + end)
+    # logfile.flush()
 
 
-def eerScore(yTrue, yPred):
+def eerCalc(yTrue, yPred):
     if len(yPred) > 0 and len(yPred[0]) > 1:
         yPred = [p for n, p in yPred]
     
     fpr, tpr, thresholds = metrics.roc_curve(yTrue, yPred, pos_label=1)
     fnr = 1 - tpr
+    index = np.nanargmin(np.absolute((fnr - fpr)))
 
-    return fpr[np.nanargmin(np.absolute((fnr - fpr)))]
+    return fpr[index], thresholds[index]
+
+
+def eerScore(yTrue, yPred):
+    eer, _ = eerCalc(yTrue, yPred)
+    return eer
 
 
 def tuneModel(xTrain, yTrain, xTest, yTest, probability=True):
@@ -76,14 +88,24 @@ def trainModel(xTrain, yTrain, xTest, yTest, C, gamma, probability):
     # print("Model fitted")
 
     # print("Testing...")
-    yPred = []
+    yPredProb = []
     if probability:
-        yPred = clf.predict_proba(xTest)
+        yPredProb = clf.predict_proba(xTest)
     else:
-        yPred = clf.predict(xTest)
+        yPredProb = clf.predict(xTest)
 
-    # y_pred = (clf.predict_proba(X_test)[:,1] >= 0.3).astype(bool) # set threshold as 0.3
-    print("EER = %f" % (eerScore(yTest, yPred)))
+    eer, threshold = eerCalc(yTest, yPredProb)
+    yPred = (yPredProb[:,1] >= threshold).astype(bool)
+    conMat = metrics.confusion_matrix(yTest, yPred)
+
+    print("Parameters: C = %e, gamma = %e, threshold = %f" %(C, gamma, threshold))
+    print()
+    print(conMat)
+    print()
+    print("EER = %f" % (eer))
+    print()
+    print(metrics.classification_report(yTest, yPred))
+    print()
 
     return clf
 
@@ -99,14 +121,8 @@ X_train, y_train = data.getTrainingDataFromFile("out3", "train")
 X_test, y_test = data.getTrainingDataFromFile("out3", "test")
 print("Data loaded")
 
-# TODO: Try to fit this
 # tuneModel(X_train, y_train, X_test, y_test)
-
-# EER = 0.091927 for C = 3.000000e+06, gamma = 1.000000e-11
-
-# Best parameters found for:
-#         C = 3.000000e+06, gamma = 1.000000e-11
-#         EER = 0.091927
 
 trainModel(X_train, y_train, X_test, y_test, C=3e6, gamma=1e-11, probability=True) # EER = 0.084474
 trainModel(X_train, y_train, X_test, y_test, C=7e2, gamma=3e-10, probability=True) # EER = 0.073171
+trainModel(X_train, y_train, X_test, y_test, C=3e3, gamma=7e-11, probability=True) # EER = 0.069007
