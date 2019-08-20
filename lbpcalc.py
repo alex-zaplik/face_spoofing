@@ -134,7 +134,7 @@ class LBPCalc:
             xx = (x + d[0] * step) % w
             yy = (y + d[1] * step) % h
 
-            col = int(img[yy, xx])
+            col = int(extract(img[yy, xx]))
             val += int(2 ** j) if col - c >= 0 else 0
 
         return val
@@ -198,7 +198,7 @@ class LBPCalc:
         reverseMapping = self.revMaps[size]
         for x in range(w):
             for y in range(h):
-                mapped = mapping[img[y, x]]
+                mapped = mapping[extract(img[y, x])]
                 index = reverseMapping[mapped]
                 
                 hist[index] += 1

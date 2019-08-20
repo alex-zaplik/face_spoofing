@@ -1,11 +1,12 @@
 from matplotlib import pyplot as plt
 from sklearn import datasets, svm, metrics
 from sklearn.model_selection import train_test_split, GridSearchCV
-from methods import maattaHistogram
+from methods import maattaHistogram, colorspaceHistogram
 from datetime import datetime
 
 import numpy as np
 import argparse
+import os
 
 import data
 
@@ -50,7 +51,7 @@ def tuneModel(xTrain, yTrain, xTest, yTest, probability=True):
             log("EER = %f for C = %e, gamma = %e" % (eer, C, gamma), end=" ")
 
 
-            if eer < bestEer:
+            if eer < bestEer and eer > 0.00001:
                 log("<- New Best")
 
                 bestEer = eer
@@ -109,7 +110,7 @@ def trainModel(xTrain, yTrain, xTest, yTest, C, gamma, verbose=False):
 parser = argparse.ArgumentParser()
 
 parser.add_argument("--mode", "-mo", default="Class", choices=["Gen", "Tune", "Train", "Class"])
-parser.add_argument("--method", "-me")
+parser.add_argument("--method", "-me", choices=["Maatta", "HSV", "YCrCb"])
 
 parser.add_argument("--dataPath", "-dpa")
 parser.add_argument("--dataPrefix", "-dpr")
@@ -135,7 +136,8 @@ method = args.method
 
 
 if args.log:
-    logfile = open("%s.log" % (str(datetime.now())
+    os.makedirs("logs", exist_ok=True)
+    logfile = open(os.path.join("logs", "%s.log" % (str(datetime.now()))
             .replace(".", "-")
             .replace(":", "-")
             .replace(" ", "_")
@@ -151,24 +153,37 @@ def log(text="", end="\n"):
 
 
 if mode == "Gen":
-    # TODO: Use method
 
     dataPath = args.dataPath
     dataPrefix = args.dataPrefix
 
-    if args.testTrue is None and args.testSpoof is None:
-        print("Processing data...")
-        data.getTrainingData(dataPath, dataPrefix, "all", args.trainTrue, args.trainSpoof, maattaHistogram, grayscale=True)
-        print("Data processed")
-    elif args.testTrue is None or args.testSpoof is None:
-        print("Error: Only one test set given")
+    methodDict = {
+        "Maatta" : lambda suffix, t, s: data.getTrainingData(
+            dataPath, dataPrefix, suffix, t, s, maattaHistogram, grayscale=True
+        ),
+        "HSV" : lambda suffix, t, s: data.getTrainingData(
+            dataPath, dataPrefix, suffix, t, s, lambda img: colorspaceHistogram(img, space="HSV"), grayscale=False
+        ),
+        "YCrCb" : lambda suffix, t, s: data.getTrainingData(
+            dataPath, dataPrefix, suffix, t, s, lambda img: colorspaceHistogram(img, space="YCrCb"), grayscale=False
+        )
+    }
+
+    if args.method is not None:
+        if args.testTrue is None and args.testSpoof is None:
+            prin("Processing data...")
+            methodDict[args.method]("all", args.trainTrue, args.trainSpoof)
+            print("Data processed")
+        elif args.testTrue is None or args.testSpoof is None:
+            print("Error: Only one test set given")
+        else:
+            print("Processing data...")
+            methodDict[args.method]("train", args.trainTrue, args.trainSpoof)
+            methodDict[args.method]("test", args.testTrue, args.testSpoof)
+            print("Data processed")
     else:
-        print("Processing data...")
-        data.getTrainingData(dataPath, dataPrefix, "train", args.trainTrue, args.trainSpoof, maattaHistogram, grayscale=True)
-        data.getTrainingData(dataPath, dataPrefix, "test", args.testTrue, args.testSpoof, maattaHistogram, grayscale=True)
-        print("Data processed")
+        print("Error: Method not given")
 elif mode == "Tune":
-    # TODO: Use method
     # TODO: Save clf to file (modelPath)
     # TODO: Loading with 4-fold CV (if _train/_test files don't exist, check _all)
 
@@ -186,9 +201,8 @@ elif mode == "Tune":
 
     clf = tuneModel(xTrain, yTrain, xTest, yTest)
 elif mode == "Train":
-    # TODO: Use method
     # TODO: Save clf to file (modelPath)
-    # TODO: Loading with 4-fold CV
+    # TODO: Loading with 4-fold CV (if _train/_test files don't exist, check _all)
 
     dataPath = args.dataPath
     dataPrefix = args.dataPrefix
@@ -214,6 +228,6 @@ elif mode == "Class":
     # TODO: Implements single image classification
     print("TODO: Implements single image classification")
 
-# python .\testEntry.py -mo Gen -dpa "out/maatta/" -dpr "from_raw" -trt "raw/client_train_raw.txt" -trs "raw/imposter_train_raw.txt" -tet "raw/client_test_raw.txt" -tes "raw/imposter_test_raw.txt"
+# python .\testEntry.py -mo Gen -me Maatta -dpa "out/maatta/" -dpr "from_raw" -trt "raw/client_train_raw.txt" -trs "raw/imposter_train_raw.txt" -tet "raw/client_test_raw.txt" -tes "raw/imposter_test_raw.txt"
 # python .\testEntry.py -mo Tune -dpa "out/maatta/" -dpr "from_raw" -l
 # python .\testEntry.py -mo Train -dpa "out/maatta/" -dpr "from_raw" -c "3e3" -g "7e-11" -v

@@ -3,9 +3,8 @@ from matplotlib import pyplot as plt
 
 import numpy as np
 
-def genImages(p):
+def genImages(p, r):
     deltas = []
-    r = 2
 
     for j in range(p):   
         a = j * (2 * np.pi / p) 
@@ -15,21 +14,28 @@ def genImages(p):
         deltas.append((xx, yy, j))
 
     for i in range(2 ** p):
-        img = np.zeros((5, 5), np.uint8)
-        img[2, 2] = 150
+        img = np.zeros((1 + 2 * r, 1 + 2 * r), np.uint8)
+        img[r, r] = 150
 
         for d in deltas:
             if i & (1 << d[2]):
-                img[2 + d[1], 2 + d[0]] = 255
+                img[r + d[1], r + d[0]] = 255
         
         yield (img, i, isUniform(p, i))
 
 
 def testLBP():
-    lbp = LBPCalc(((16, 2), (8, 2)))
+    lbp = LBPCalc(((16, 2), (8, 2), (8, 1)))
     
+    print("Testing LBP_8_1")
+    for img in genImages(8, 1):
+        val_8_1 = lbp.lbpOperator(img[0], 1, 1, 3, 3, lbp.lbpDeltas[(8, 1)])
+        
+        if img[1] != val_8_1 or img[2] != isUniform(8, val_8_1):
+            print("Error for LBP_8_2", img[0], img[1], val_8_1)
+
     print("Testing LBP_8_2")
-    for img in genImages(8):
+    for img in genImages(8, 2):
         val_8_2 = lbp.lbpOperator(img[0], 2, 2, 5, 5, lbp.lbpDeltas[(8, 2)])
         
         if img[1] != val_8_2 or img[2] != isUniform(8, val_8_2):
@@ -37,7 +43,7 @@ def testLBP():
             print("Error for LBP_8_2", img[0], img[1], val_16_2, val_8_2)
 
     print("Testing LBP_16_2")
-    for img in genImages(16):
+    for img in genImages(16, 2):
         val_16_2 = lbp.lbpOperator(img[0], 2, 2, 5, 5, lbp.lbpDeltas[(16, 2)])
 
         if img[1] != val_16_2 or img[2] != isUniform(16, val_16_2):
