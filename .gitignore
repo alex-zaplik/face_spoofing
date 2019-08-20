@@ -1,5 +1,8 @@
 NormalizedFace/
+raw/
+Images/
 venv/
+out/
 __pycache__/
 .vscode/
 
