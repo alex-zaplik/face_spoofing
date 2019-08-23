@@ -336,5 +336,6 @@ elif mode == "Class":
     cv2.waitKey()
 
 # python .\testEntry.py -mo Gen -me Gray -dpa "out/gray/" -dpr "from_raw" -trt "raw/client_train_raw.txt" -trs "raw/imposter_train_raw.txt" -tet "raw/client_test_raw.txt" -tes "raw/imposter_test_raw.txt"
-# python .\testEntry.py -mo Tune -k rbf -dpa "out/gray/" -dpr "from_raw" -l
-# python .\testEntry.py -mo Train -k rbf -dpa "out/gray/" -dpr "from_raw" -c "3" -g "5e-9" -v
+# python .\testEntry.py -mo Tune -k rbf -me Gray -dpa "out/gray/" -mp "out/gray/model.svm" -dpr "from_raw" -l
+# python .\testEntry.py -mo Train -k rbf -me Gray -dpa "out/gray/" -mp "clfs/gray_lbp.svm" -dpr "from_raw" -c "3" -g "5e-9" -v
+# python .\testEntry.py -mo Class -dpr "from_raw" -mp "clfs/gray_lbp.svm" -dpa "Images/0007_01_00_01_161.jpg"
