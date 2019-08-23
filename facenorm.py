@@ -13,7 +13,7 @@ class FaceNormalizer:
         self.predictor = dlib.shape_predictor("shape_predictor_68_face_landmarks.dat")
         self.aligner = FaceAligner(self.predictor, desiredFaceWidth=desiredFaceWidth, desiredLeftEye=desiredLeftEye)
     
-    def normalizedFaces(self, img, faceW=64, faceH=64, grayscale=True):
+    def normalizedFaces(self, img, faceW=64, faceH=64, grayscale=True, returnBox=False):
         faces = []
         gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
         rects = self.detector(gray, 2)
@@ -27,6 +27,9 @@ class FaceNormalizer:
             if grayscale:
                 faceAligned = cv2.cvtColor(faceAligned, cv2.COLOR_BGR2GRAY)
 
-            faces.append(imutils.resize(faceAligned, width=faceW, height=faceH))
+            if returnBox:
+                faces.append((imutils.resize(faceAligned, width=faceW, height=faceH), (x, y, w, h)))
+            else:
+                faces.append(imutils.resize(faceAligned, width=faceW, height=faceH))
         
         return faces

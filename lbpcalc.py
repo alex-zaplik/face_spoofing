@@ -161,15 +161,15 @@ class LBPCalc:
         p = size[0]
         r = size[1]
 
-        img = rawImage.astype(np.uint16)
-        (h, w) = img.shape[:2] if windowSize[0] == -1 and windowSize[1] == -1 else windowSize
+        resImg = rawImage.astype(np.uint16)
+        (h, w) = rawImage.shape[:2] if windowSize[0] == -1 and windowSize[1] == -1 else windowSize
         deltas = self.lbpDeltas[size]
 
         for x in range(xOffset, w, step):
             for y in range(yOffset, h, step):
-                img[y, x] = self.lbpOperator(img, x, y, w, h, deltas, extract=extract, step=step)
+                resImg[y, x] = self.lbpOperator(rawImage, x, y, w, h, deltas, extract=extract, step=step)
 
-        return img
+        return resImg
     
 
     def histogram(self, rawImage, size, windowSize=(-1, -1), xOffset=0, yOffset=0, extract=lambda c: c, step=1):

@@ -1,16 +1,31 @@
 import cv2
 import os
 import random
+import joblib
 
 from facenorm import FaceNormalizer
 
 
-# Loading data
-def loadFromList(listFilePath, outPath, outName, histFunc, grayscale, fn, label):
+def loadPhoto(path, histFunc, grayscale):
+    fn = FaceNormalizer()
     hists = []
 
-    os.makedirs(outPath, exist_ok=True)
-    output = open(os.path.join(outPath, outName + ".txt"), "w")
+    img = cv2.imread(path)
+    faces = fn.normalizedFaces(img, grayscale=grayscale, returnBox=True)
+
+    for face, box in faces:
+        hist = histFunc(face)
+        hists.append([hist, box])
+    
+    return hists
+
+# Loading data
+def loadFromList(listFilePath, outPath, outName, histFunc, grayscale, fn, label, toFile=True):
+    hists = []
+
+    if toFile:
+        os.makedirs(outPath, exist_ok=True)
+        output = open(os.path.join(outPath, outName + ".txt"), "w")
 
     clientTrainList = open(listFilePath, "r")
     for path in clientTrainList:
@@ -20,10 +35,10 @@ def loadFromList(listFilePath, outPath, outName, histFunc, grayscale, fn, label)
 
         for face in faces:
             hist = histFunc(face)
-            output.write(str(hist) + '\n')
+            if toFile:
+                output.write(str(hist) + '\n')
             hists.append([hist, label])
-
-        cv2.waitKey(0)
+    
     return hists
 
 
@@ -61,3 +76,11 @@ def getTrainingDataFromFile(path, prefix, suffix):
     random.shuffle(data)
     return [d[0] for d in data], [d[1] for d in data]
 
+
+def saveClassifier(clf, threshold, method, path):
+    joblib.dump((clf, threshold, method), path)
+
+
+def loadClassifier(path):
+    (clf, threshold, method) = joblib.load(path)
+    return clf, threshold, method
