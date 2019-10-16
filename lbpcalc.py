@@ -124,7 +124,20 @@ class LBPCalc:
 
 
     def lbpOperator(self, img, x, y, w, h, deltas, extract=lambda c: c, step=1):
-        # TODO: Docstring
+        """Calculates the LBP label for a pixel at given coordinated using deltas
+        to sample neighbouring pixels. This method is described in greater detail
+        in the thesis
+
+        Args:
+            img (numpy.ndarray): The image to be provessed
+            x (int): X coordinate of the center pixel
+            y (int): Y coordinate of the center pixel
+            w (int): Width of the image
+            h (int): Height of the image
+            deltas (list((int, int))): Pixel offsets for retiving samples
+            extract (TODO, optional): Method of extracting color values from a pixel
+            step (int, optional): Step size along a single axis
+        """
         
         val = 0
         c = int(extract(img[y, x]))
@@ -146,16 +159,16 @@ class LBPCalc:
         TODO: Longer decsription
 
         Args:
-            rawImage (TODO): The image to be processed
+            rawImage (numpy.ndarray): The image to be processed
             size ((int, int)): The size of the operator
             windowSize ((int, int)): The size of the part of the image that will be used in computation given as (height, width)
             xOffset (int, optional): Starting pixel x offset
             yOffset (int, optional): Starting pixel y offset
-            extract (TODO): Method of extracting color values from a pixel
+            extract (TODO, optional): Method of extracting color values from a pixel
             step (int, optional): Step size along a single axis
 
         Returns:
-            TODO: The processed 16-bit image
+            numpy.ndarray: The processed 16-bit image
         """
 
         p = size[0]
@@ -177,16 +190,16 @@ class LBPCalc:
         calculated data
 
         Args:
-            rawImage (TODO): The image to be processed
+            rawImage (numpy.ndarray): The image to be processed
             size ((int, int)): The size of the LBP operator
             windowSize ((int, int)): The size of the part of the image that will be used in computation given as (height, width)
             xOffset (int, optional): Starting pixel x offset for the LBP operator
             yOffset (int, optional): Starting pixel y offset for the LBP operator
-            extract (TODO): Method of extracting color values from a pixel
+            extract (TODO, optional): Method of extracting color values from a pixel
             step (int, optional): LBP operator step size along a single axis
 
         Returns:
-            TODO: The calcualted histogram
+            list(int): The calcualted histogram
         """
 
         img = self.lbp(rawImage.copy(), size, windowSize=windowSize, xOffset=xOffset, yOffset=yOffset, extract=extract, step=step)

@@ -7,6 +7,18 @@ from facenorm import FaceNormalizer
 
 
 def loadPhoto(path, histFunc, grayscale):
+    """This function loads a photo into memory, detects faces in it and calculates
+    histograms for each of them used the method given
+
+    Args:
+        path (str): The path to the image
+        histFunc (TODO): The method of calculating histograms. Must be a callable
+        taking the image as the only argument and returning a histogram
+    
+    Returns:
+        list(list(int)): The calculated histograms
+    """
+
     fn = FaceNormalizer()
     hists = []
 
@@ -44,6 +56,10 @@ def loadFromList(listFilePath, outPath, outName, histFunc, grayscale, fn, label,
 
 # Load default training data
 def getTrainingData(dataPath, dataPrefix, dataSuffix, listPathTrue, listPathSpoof, histFunc, grayscale):
+    """
+    TODO
+    """
+
     fn = FaceNormalizer()
 
     print("\tLoading client data...")
@@ -67,6 +83,10 @@ def loadDataFile(filePath, label):
 
 
 def getTrainingDataFromFile(path, prefix, suffix):
+    """
+    TODO
+    """
+
     print("\tLoading client data...")
     data = loadDataFile(os.path.join(path, prefix + "_client_" + suffix + ".txt"), 0)
 
@@ -78,9 +98,29 @@ def getTrainingDataFromFile(path, prefix, suffix):
 
 
 def saveClassifier(clf, threshold, method, path):
+    """Saves an SVM classifier to a binary file at 'path' along with its EER threshold
+    and the method that was used to train it
+
+    Args:
+        clf (SVM): The classifier
+        threshold (float): The EER threshold
+        method (str): The method that was used
+        path (str): The path where the SVM will be saved
+    """
+
     joblib.dump((clf, threshold, method), path)
 
 
 def loadClassifier(path):
+    """Loads an SVM classifier from a binary file at 'path' along with its EER threshold
+    and the method that was used to train it
+
+    Args:
+        path (str): The path to the SVM file
+
+    Retuns:
+        (SVM, float, str): The classifier, the EER threshold and the method that was used
+    """
+
     (clf, threshold, method) = joblib.load(path)
     return clf, threshold, method

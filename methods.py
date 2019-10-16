@@ -3,6 +3,7 @@ from lbpcalc import LBPCalc
 import cv2
 
 
+# LBP types that are used by this application represented as (p, q) pairs
 lbp = LBPCalc(((16, 2), (8, 2), (8, 1)))
 
 
@@ -24,10 +25,31 @@ def curiousMethod(img):
 
 
 def grayscaleLBP(img):
+    """The simples algorithm collecting a single LBP_{8, 1} pass on a grayscale
+    image into a histogram
+
+    Args:
+        img (numpy.ndarray): The image to be processed
+    
+    Returns:
+        list(int): The calculated histogram
+    """
+
     return lbp.histogram(img, (8, 1))
 
 
 def maattaHistogram(img):
+    """A method proposed by Maatta et al. which uses eleven passes concatenated
+    to a single histogram. The passes are: An LBP_{16, 2} and an LBP_{8, 2} over the
+    entire image and nine LBP_{8, 2} passed over overlapping squares
+
+    Args:
+        img (numpy.ndarray): The image to be processed
+    
+    Returns:
+        list(int): The concatination of the eleven calculated histograms
+    """
+
     # Total histograms
     hist_16_2 = lbp.histogram(img, (16, 2))
     hist_8_2 = lbp.histogram(img, (8, 2))
@@ -42,6 +64,19 @@ def maattaHistogram(img):
 
 
 def colorspaceHistogram(img, space='RGB'):
+    """A method proposed by TODO which uses three LBP_{8, 1} passes, one over each channel
+    of the given color space
+
+    Args:
+        img (numpy.ndarray): The image to be processed
+        space (str, optional): The color space to be used. Options are 'HSV', 'YCrCb' and
+        'Dual' (concatenation of 'HSV' and 'YCrCb'). If a different value is given the RGB
+        color space will be used
+    
+    Returns:
+        list(int): The concatination of the three calculated histograms
+    """
+
     # TODO: Allow use of CoALBP
 
     hist = []
