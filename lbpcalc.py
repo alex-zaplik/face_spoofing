@@ -35,6 +35,10 @@ def isUniform(n, c):
 
 
 class LBPCalc:
+    """
+    A general implementation of the LBP operator. Allows the use of
+    different operator sizes and strides
+    """
 
     def __init__(self, sizes):
         """

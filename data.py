@@ -33,6 +33,10 @@ def loadPhoto(path, histFunc, grayscale):
 
 # Loading data
 def loadFromList(listFilePath, outPath, outName, histFunc, grayscale, fn, label, toFile=True):
+    """
+    TODO
+    """
+    
     hists = []
 
     if toFile:
@@ -73,6 +77,10 @@ def getTrainingData(dataPath, dataPrefix, dataSuffix, listPathTrue, listPathSpoo
 
 
 def loadDataFile(filePath, label):
+    """
+    TODO
+    """
+
     hists = []
     file = open(filePath, "r")
     

@@ -7,5 +7,6 @@ __pycache__/
 .vscode/
 
 *.txt
+*.pyc
 attempt0.py
 test.py

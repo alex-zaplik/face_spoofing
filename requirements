@@ -1,6 +1,8 @@
 numpy==1.17.2
-opencv-python==4.1.1
+opencv-python==4.1.1.26
 joblib==0.14.0
 dlib==19.18.0
 imutils==0.5.3
-matplotlib=3.1.1
+matplotlib==3.1.1
+Sphinx==2.2.0
+scikit-learn==0.21.3

@@ -1,0 +1,132 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>Face detection and normalization &#8212; Face Spoofing 0.5 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Histogram calculation methods" href="methods.html" />
+    <link rel="prev" title="Data handling" href="data.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="face-detection-and-normalization">
+<h1>Face detection and normalization<a class="headerlink" href="#face-detection-and-normalization" title="Permalink to this headline">¶</a></h1>
+<dl class="class">
+<dt id="facenorm.FaceNormalizer">
+<em class="property">class </em><code class="sig-prename descclassname">facenorm.</code><code class="sig-name descname">FaceNormalizer</code><span class="sig-paren">(</span><em class="sig-param">desiredFaceWidth=203</em>, <em class="sig-param">desiredLeftEye=(0.25</em>, <em class="sig-param">0.25)</em><span class="sig-paren">)</span><a class="headerlink" href="#facenorm.FaceNormalizer" title="Permalink to this definition">¶</a></dt>
+<dd><p>This class uses imutils.face_utils.FaceAligner to normalize a square photo
+of a face. This is used before feature extraction to achive more reliable
+results</p>
+<dl class="method">
+<dt id="facenorm.FaceNormalizer.__init__">
+<code class="sig-name descname">__init__</code><span class="sig-paren">(</span><em class="sig-param">desiredFaceWidth=203</em>, <em class="sig-param">desiredLeftEye=(0.25</em>, <em class="sig-param">0.25)</em><span class="sig-paren">)</span><a class="headerlink" href="#facenorm.FaceNormalizer.__init__" title="Permalink to this definition">¶</a></dt>
+<dd><dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>desiredFaceWidth</strong> (<em>int</em><em>, </em><em>optional</em>) – desiredFaceWidth parameter of FaceAligner</p></li>
+<li><p><strong>desiredLeftEye</strong> (<em>(</em><em>float</em><em>, </em><em>float</em><em>)</em><em>, </em><em>optional</em>) – desiredLeftEye parameter of FaceAligner</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="facenorm.FaceNormalizer.normalizedFaces">
+<code class="sig-name descname">normalizedFaces</code><span class="sig-paren">(</span><em class="sig-param">img</em>, <em class="sig-param">faceW=64</em>, <em class="sig-param">faceH=64</em>, <em class="sig-param">grayscale=True</em>, <em class="sig-param">returnBox=False</em><span class="sig-paren">)</span><a class="headerlink" href="#facenorm.FaceNormalizer.normalizedFaces" title="Permalink to this definition">¶</a></dt>
+<dd><p>Returnes a list of normalized faces detected in the image</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>img</strong> (<em>numby.ndarray</em>) – The image to be processed</p></li>
+<li><p><strong>faceW</strong> (<em>int</em><em>, </em><em>optional</em>) – The width of the resulting image</p></li>
+<li><p><strong>faceH</strong> (<em>int</em><em>, </em><em>optional</em>) – The height of the resulting image</p></li>
+<li><p><strong>grayscale</strong> (<em>bool</em><em>, </em><em>optional</em>) – If true the images will be converted to grayscale</p></li>
+<li><p><strong>returnBox</strong> (<em>bool</em><em>, </em><em>optional</em>) – If true the return type will change (see return types)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>A list of detected and normalized
+faces. If ‘returnBox’ was set tu true the list contains pairs with an ndarray
+image of the face and a rectangle defined by the x, y coordinated of the top-left
+corner, the width and the height. If ‘returnBox’ was set to false just a list of
+ndarrays is returned</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>list((numpy.ndarray, (int, int, int, int)))</p>
+</dd>
+</dl>
+</dd></dl>
+
+</dd></dl>
+
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="data.html" title="previous chapter">Data handling</a></li>
+      <li>Next: <a href="methods.html" title="next chapter">Histogram calculation methods</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2019, Aleksander Lasecki.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.2.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/facenorm.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>

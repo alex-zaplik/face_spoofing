@@ -1,0 +1,163 @@
+
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+  <head>
+    <meta charset="utf-8" />
+    <title>Data handling &#8212; Face Spoofing 0.5 documentation</title>
+    <link rel="stylesheet" href="_static/alabaster.css" type="text/css" />
+    <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+    <script type="text/javascript" src="_static/jquery.js"></script>
+    <script type="text/javascript" src="_static/underscore.js"></script>
+    <script type="text/javascript" src="_static/doctools.js"></script>
+    <script type="text/javascript" src="_static/language_data.js"></script>
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="Face detection and normalization" href="facenorm.html" />
+    <link rel="prev" title="Local Binary Patterns implementation" href="lbpcalc.html" />
+   
+  <link rel="stylesheet" href="_static/custom.css" type="text/css" />
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=0.9, maximum-scale=0.9" />
+
+  </head><body>
+  
+
+    <div class="document">
+      <div class="documentwrapper">
+        <div class="bodywrapper">
+          
+
+          <div class="body" role="main">
+            
+  <div class="section" id="module-data">
+<span id="data-handling"></span><h1>Data handling<a class="headerlink" href="#module-data" title="Permalink to this headline">¶</a></h1>
+<dl class="function">
+<dt id="data.getTrainingData">
+<code class="sig-prename descclassname">data.</code><code class="sig-name descname">getTrainingData</code><span class="sig-paren">(</span><em class="sig-param">dataPath</em>, <em class="sig-param">dataPrefix</em>, <em class="sig-param">dataSuffix</em>, <em class="sig-param">listPathTrue</em>, <em class="sig-param">listPathSpoof</em>, <em class="sig-param">histFunc</em>, <em class="sig-param">grayscale</em><span class="sig-paren">)</span><a class="headerlink" href="#data.getTrainingData" title="Permalink to this definition">¶</a></dt>
+<dd><p>TODO</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="data.getTrainingDataFromFile">
+<code class="sig-prename descclassname">data.</code><code class="sig-name descname">getTrainingDataFromFile</code><span class="sig-paren">(</span><em class="sig-param">path</em>, <em class="sig-param">prefix</em>, <em class="sig-param">suffix</em><span class="sig-paren">)</span><a class="headerlink" href="#data.getTrainingDataFromFile" title="Permalink to this definition">¶</a></dt>
+<dd><p>TODO</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="data.loadClassifier">
+<code class="sig-prename descclassname">data.</code><code class="sig-name descname">loadClassifier</code><span class="sig-paren">(</span><em class="sig-param">path</em><span class="sig-paren">)</span><a class="headerlink" href="#data.loadClassifier" title="Permalink to this definition">¶</a></dt>
+<dd><p>Loads an SVM classifier from a binary file at ‘path’ along with its EER threshold
+and the method that was used to train it</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>path</strong> (<em>str</em>) – The path to the SVM file</p>
+</dd>
+</dl>
+<dl class="simple">
+<dt>Retuns:</dt><dd><p>(SVM, float, str): The classifier, the EER threshold and the method that was used</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="data.loadDataFile">
+<code class="sig-prename descclassname">data.</code><code class="sig-name descname">loadDataFile</code><span class="sig-paren">(</span><em class="sig-param">filePath</em>, <em class="sig-param">label</em><span class="sig-paren">)</span><a class="headerlink" href="#data.loadDataFile" title="Permalink to this definition">¶</a></dt>
+<dd><p>TODO</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="data.loadFromList">
+<code class="sig-prename descclassname">data.</code><code class="sig-name descname">loadFromList</code><span class="sig-paren">(</span><em class="sig-param">listFilePath</em>, <em class="sig-param">outPath</em>, <em class="sig-param">outName</em>, <em class="sig-param">histFunc</em>, <em class="sig-param">grayscale</em>, <em class="sig-param">fn</em>, <em class="sig-param">label</em>, <em class="sig-param">toFile=True</em><span class="sig-paren">)</span><a class="headerlink" href="#data.loadFromList" title="Permalink to this definition">¶</a></dt>
+<dd><p>TODO</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="data.loadPhoto">
+<code class="sig-prename descclassname">data.</code><code class="sig-name descname">loadPhoto</code><span class="sig-paren">(</span><em class="sig-param">path</em>, <em class="sig-param">histFunc</em>, <em class="sig-param">grayscale</em><span class="sig-paren">)</span><a class="headerlink" href="#data.loadPhoto" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function loads a photo into memory, detects faces in it and calculates
+histograms for each of them used the method given</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path</strong> (<em>str</em>) – The path to the image</p></li>
+<li><p><strong>histFunc</strong> (<em>TODO</em>) – The method of calculating histograms. Must be a callable</p></li>
+<li><p><strong>the image as the only argument and returning a histogram</strong> (<em>taking</em>) – </p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The calculated histograms</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>list(list(int))</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="data.saveClassifier">
+<code class="sig-prename descclassname">data.</code><code class="sig-name descname">saveClassifier</code><span class="sig-paren">(</span><em class="sig-param">clf</em>, <em class="sig-param">threshold</em>, <em class="sig-param">method</em>, <em class="sig-param">path</em><span class="sig-paren">)</span><a class="headerlink" href="#data.saveClassifier" title="Permalink to this definition">¶</a></dt>
+<dd><p>Saves an SVM classifier to a binary file at ‘path’ along with its EER threshold
+and the method that was used to train it</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>clf</strong> (<em>SVM</em>) – The classifier</p></li>
+<li><p><strong>threshold</strong> (<em>float</em>) – The EER threshold</p></li>
+<li><p><strong>method</strong> (<em>str</em>) – The method that was used</p></li>
+<li><p><strong>path</strong> (<em>str</em>) – The path where the SVM will be saved</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+
+
+          </div>
+          
+        </div>
+      </div>
+      <div class="sphinxsidebar" role="navigation" aria-label="main navigation">
+        <div class="sphinxsidebarwrapper"><div class="relations">
+<h3>Related Topics</h3>
+<ul>
+  <li><a href="index.html">Documentation overview</a><ul>
+      <li>Previous: <a href="lbpcalc.html" title="previous chapter">Local Binary Patterns implementation</a></li>
+      <li>Next: <a href="facenorm.html" title="next chapter">Face detection and normalization</a></li>
+  </ul></li>
+</ul>
+</div>
+<div id="searchbox" style="display: none" role="search">
+  <h3 id="searchlabel">Quick search</h3>
+    <div class="searchformwrapper">
+    <form class="search" action="search.html" method="get">
+      <input type="text" name="q" aria-labelledby="searchlabel" />
+      <input type="submit" value="Go" />
+    </form>
+    </div>
+</div>
+<script type="text/javascript">$('#searchbox').show(0);</script>
+        </div>
+      </div>
+      <div class="clearer"></div>
+    </div>
+    <div class="footer">
+      &copy;2019, Aleksander Lasecki.
+      
+      |
+      Powered by <a href="http://sphinx-doc.org/">Sphinx 2.2.0</a>
+      &amp; <a href="https://github.com/bitprophet/alabaster">Alabaster 0.7.12</a>
+      
+      |
+      <a href="_sources/data.rst.txt"
+          rel="nofollow">Page source</a>
+    </div>
+
+    
+
+    
+  </body>
+</html>
