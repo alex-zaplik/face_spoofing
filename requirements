@@ -6,3 +6,4 @@ imutils==0.5.3
 matplotlib==3.1.1
 Sphinx==2.2.0
 scikit-learn==0.21.3
+sphinx-rtd-theme==0.4.3

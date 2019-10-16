@@ -25,7 +25,7 @@ def curiousMethod(img):
 
 
 def grayscaleLBP(img):
-    """The simples algorithm collecting a single LBP_{8, 1} pass on a grayscale
+    """The simples algorithm collecting a single :math:`LBP_{8, 1}` pass on a grayscale
     image into a histogram
 
     Args:
@@ -40,8 +40,8 @@ def grayscaleLBP(img):
 
 def maattaHistogram(img):
     """A method proposed by Maatta et al. which uses eleven passes concatenated
-    to a single histogram. The passes are: An LBP_{16, 2} and an LBP_{8, 2} over the
-    entire image and nine LBP_{8, 2} passed over overlapping squares
+    to a single histogram. The passes are: An :math:`LBP_{16, 2}` and an :math:`LBP_{8, 2}` over the
+    entire image and nine :math:`LBP_{8, 2}` passed over overlapping squares
 
     Args:
         img (numpy.ndarray): The image to be processed
@@ -64,7 +64,7 @@ def maattaHistogram(img):
 
 
 def colorspaceHistogram(img, space='RGB'):
-    """A method proposed by TODO which uses three LBP_{8, 1} passes, one over each channel
+    """A method proposed by TODO which uses three :math:`LBP_{8, 1}` passes, one over each channel
     of the given color space
 
     Args:
