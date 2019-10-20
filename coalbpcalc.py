@@ -56,7 +56,7 @@ class CoALBP:
 
         vector = np.concatenate([
             self.cooccurrenceMatrix(lbpImg, w, h, a, d).flatten()
-            for a in [(0, 1), (1, 0), (1, 1), (-1, 1)]
+            for a in [(0, d), (d, 0), (d, d), (-d, d)]
         ])
 
-        return vector
+        return list(map(int, vector))

@@ -1,9 +1,11 @@
 from lbpcalc import LBPCalc
+from coalbpcalc import CoALBP
 
 import cv2
 
 
 lbp = LBPCalc(((16, 2), (8, 2), (8, 1)))
+coalbp = CoALBP()
 
 
 # Just because I'm curious
@@ -23,8 +25,18 @@ def curiousMethod(img):
     return hist
 
 
-def grayscaleLBP(img):
+def grayscaleLBP(img, useCoALBP=False):
+    if useCoALBP:
+        return coalbp.feature(img, 1, 2)
     return lbp.histogram(img, (8, 1))
+
+
+def grayscaleMultiCoALBP(img):
+    hist  = coalbp.feature(img, 1, 2)
+    hist += coalbp.feature(img, 2, 4)
+    hist += coalbp.feature(img, 4, 8)
+
+    return hist
 
 
 def maattaHistogram(img):
@@ -41,7 +53,7 @@ def maattaHistogram(img):
     return hist_16_2 + localHists + hist_8_2
 
 
-def colorspaceHistogram(img, space='RGB'):
+def colorspaceHistogram(img, space='RGB', useCoALBP=False):
     # TODO: Allow use of CoALBP
 
     hist = []
@@ -53,8 +65,13 @@ def colorspaceHistogram(img, space='RGB'):
         return colorspaceHistogram(img, space='YCrCb') + colorspaceHistogram(img, space='HSV')
 
     # Computing and concatenating histograms
-    hist  = lbp.histogram(img, (8, 1), extract=lambda c: c[0])
-    hist += lbp.histogram(img, (8, 1), extract=lambda c: c[1])
-    hist += lbp.histogram(img, (8, 1), extract=lambda c: c[2])
+    if not useCoALBP:
+        hist  = lbp.histogram(img, (8, 1), extract=lambda c: c[0])
+        hist += lbp.histogram(img, (8, 1), extract=lambda c: c[1])
+        hist += lbp.histogram(img, (8, 1), extract=lambda c: c[2])
+    else:
+        hist  = coalbp.feature(img, 1, 2, extract=lambda c: c[0])
+        hist += coalbp.feature(img, 2, 4, extract=lambda c: c[1])
+        hist += coalbp.feature(img, 4, 8, extract=lambda c: c[2])
 
     return hist
