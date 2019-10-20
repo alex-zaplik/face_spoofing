@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Welcome to Face Anti-spoofing’s documentation! &mdash; Face Spoofing 0.5 documentation</title>
+  <title>Program running modes (modes.py) &mdash; Face Spoofing 0.5 documentation</title>
   
 
   
@@ -36,7 +36,8 @@
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="User guide" href="terminalEntry.html" /> 
+    <link rel="next" title="Data handling (data.py)" href="data.html" />
+    <link rel="prev" title="User guide" href="terminalEntry.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -50,7 +51,7 @@
           
 
           
-            <a href="#" class="icon icon-home"> Face Spoofing
+            <a href="index.html" class="icon icon-home"> Face Spoofing
           
 
           
@@ -85,9 +86,9 @@
             
             
               <p class="caption"><span class="caption-text">Contents:</span></p>
-<ul>
+<ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="terminalEntry.html">User guide</a></li>
-<li class="toctree-l1"><a class="reference internal" href="modes.html">Program running modes (modes.py)</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Program running modes (modes.py)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="data.html">Data handling (data.py)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="facenorm.html">Face detection and normalization (facenorm.py)</a></li>
 <li class="toctree-l1"><a class="reference internal" href="lbpcalc.html">Local Binary Patterns implementation (lbpcalc.py)</a></li>
@@ -108,7 +109,7 @@
       <nav class="wy-nav-top" aria-label="top navigation">
         
           <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
-          <a href="#">Face Spoofing</a>
+          <a href="index.html">Face Spoofing</a>
         
       </nav>
 
@@ -137,15 +138,15 @@
 
   <ul class="wy-breadcrumbs">
     
-      <li><a href="#">Docs</a> &raquo;</li>
+      <li><a href="index.html">Docs</a> &raquo;</li>
         
-      <li>Welcome to Face Anti-spoofing’s documentation!</li>
+      <li>Program running modes (modes.py)</li>
     
     
       <li class="wy-breadcrumbs-aside">
         
             
-            <a href="_sources/index.rst.txt" rel="nofollow"> View page source</a>
+            <a href="_sources/modes.rst.txt" rel="nofollow"> View page source</a>
           
         
       </li>
@@ -158,27 +159,71 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="welcome-to-face-anti-spoofing-s-documentation">
-<h1>Welcome to Face Anti-spoofing’s documentation!<a class="headerlink" href="#welcome-to-face-anti-spoofing-s-documentation" title="Permalink to this headline">¶</a></h1>
-<div class="toctree-wrapper compound">
-<p class="caption"><span class="caption-text">Contents:</span></p>
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="terminalEntry.html">User guide</a></li>
-<li class="toctree-l1"><a class="reference internal" href="modes.html">Program running modes (modes.py)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="data.html">Data handling (data.py)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="facenorm.html">Face detection and normalization (facenorm.py)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="lbpcalc.html">Local Binary Patterns implementation (lbpcalc.py)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="coalbpcalc.html">CoALBP implementation (coalbp.py)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="methods.html">Histogram calculation methods (methods.py)</a></li>
-<li class="toctree-l1"><a class="reference internal" href="modelhandlers.html">Model handling (modelhandlers.py)</a></li>
-</ul>
-</div>
-</div>
-<div class="section" id="indices-and-tables">
-<h1>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h1>
-<ul class="simple">
-<li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></p></li>
-</ul>
+  <div class="section" id="module-modes">
+<span id="program-running-modes-modes-py"></span><h1>Program running modes (modes.py)<a class="headerlink" href="#module-modes" title="Permalink to this headline">¶</a></h1>
+<dl class="function">
+<dt id="modes.modeClass">
+<code class="sig-prename descclassname">modes.</code><code class="sig-name descname">modeClass</code><span class="sig-paren">(</span><em class="sig-param">args</em><span class="sig-paren">)</span><a class="headerlink" href="#modes.modeClass" title="Permalink to this definition">¶</a></dt>
+<dd><p>Mode used for classifing images using a previously trained SVM. Classification
+results are diplayed with calculated probabilities.</p>
+<p>The parameters that are required in commandline arguments are: photoPath,
+modelPath</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>args</strong> – The parsed command line arguments</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="modes.modeGen">
+<code class="sig-prename descclassname">modes.</code><code class="sig-name descname">modeGen</code><span class="sig-paren">(</span><em class="sig-param">args</em><span class="sig-paren">)</span><a class="headerlink" href="#modes.modeGen" title="Permalink to this definition">¶</a></dt>
+<dd><p>Mode used for generating training and testing data for later use in
+the tuning or training mode</p>
+<p>The parameters that are required in commandline arguments are: dataPath,
+dataPrefix, method, trainTrue, trainTrue</p>
+<p>The optional parameters are: CoALBP, testSpoof, testSpoof</p>
+<p>The data is generated using getTrainingData from the data handling module</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>args</strong> – The parsed command line arguments</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="modes.modeTrain">
+<code class="sig-prename descclassname">modes.</code><code class="sig-name descname">modeTrain</code><span class="sig-paren">(</span><em class="sig-param">args</em><span class="sig-paren">)</span><a class="headerlink" href="#modes.modeTrain" title="Permalink to this definition">¶</a></dt>
+<dd><p>Mode used for training an SVM with given parameters. Training results
+are printed to a console. The SVM is then saved to a file for later use
+(if specifies in parameters)</p>
+<p>The parameters that are required in commandline arguments are: dataPath,
+dataPrefix, kernel, C, gamma</p>
+<p>The optional parameters are: modelPath, method, verbose</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>args</strong> – The parsed command line arguments</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="modes.modeTune">
+<code class="sig-prename descclassname">modes.</code><code class="sig-name descname">modeTune</code><span class="sig-paren">(</span><em class="sig-param">args</em><span class="sig-paren">)</span><a class="headerlink" href="#modes.modeTune" title="Permalink to this definition">¶</a></dt>
+<dd><p>Mode used for tuning (ie finding the best model parameters) the SVM
+using a grid search. Tuning results are printed to a console and to
+a log file (if specifies in parameters). The SVM is then saved to a file
+for later use (if specifies in parameters)</p>
+<p>The parameters that are required in commandline arguments are: dataPath,
+dataPrefix, kernel</p>
+<p>The optional parameters are: modelPath, method, log</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>args</strong> – The parsed command line arguments</p>
+</dd>
+</dl>
+</dd></dl>
+
 </div>
 
 
@@ -189,8 +234,10 @@
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="terminalEntry.html" class="btn btn-neutral float-right" title="User guide" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="data.html" class="btn btn-neutral float-right" title="Data handling (data.py)" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
+      
+        <a href="terminalEntry.html" class="btn btn-neutral float-left" title="User guide" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

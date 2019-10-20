@@ -8,7 +8,7 @@ from imutils.face_utils import FaceAligner, rect_to_bb
 
 class FaceNormalizer:
     """
-    This class uses imutils.face_utils.FaceAligner to normalize a square photo
+    This class uses :class:`imutils.face_utils.FaceAligner` to normalize a square photo
     of a face. This is used before feature extraction to achive more reliable
     results
     """
@@ -35,11 +35,7 @@ class FaceNormalizer:
             returnBox (bool, optional): If true the return type will change (see return types)
         
         Returns:
-            list((numpy.ndarray, (int, int, int, int))): A list of detected and normalized
-            faces. If 'returnBox' was set tu true the list contains pairs with an ndarray
-            image of the face and a rectangle defined by the x, y coordinated of the top-left
-            corner, the width and the height. If 'returnBox' was set to false just a list of
-            ndarrays is returned
+            list((numpy.ndarray, (int, int, int, int))): A list of detected and normalized faces. If 'returnBox' was set tu true the list contains pairs with an ndarray image of the face and a rectangle defined by the x, y coordinated of the top-left corner, the width and the height. If 'returnBox' was set to false just a list of ndarrays is returned
         """
 
 

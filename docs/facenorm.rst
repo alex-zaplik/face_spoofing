@@ -1,5 +1,5 @@
-Face detection and normalization
-=========================================
+Face detection and normalization (facenorm.py)
+===============================================
 
 .. autoclass:: facenorm.FaceNormalizer
    :members:

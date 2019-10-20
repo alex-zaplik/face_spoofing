@@ -32,7 +32,7 @@ def grayscaleLBP(img, useCoALBP=False):
 
     Args:
         img (numpy.ndarray): The image to be processed
-        useCoALBP (bool): If true the CoALBP descriptor is used otherwise :math:`LBP_{8, 1}`
+        useCoALBP (bool, optional): If true the CoALBP descriptor is used otherwise :math:`LBP_{8, 1}`
     
     Returns:
         list(int): The calculated histogram
@@ -45,6 +45,16 @@ def grayscaleLBP(img, useCoALBP=False):
 
 
 def grayscaleMultiCoALBP(img):
+    """This method combines three sizes of the CoALBP operator: (1, 2), (2, 4) and (4, 8)
+    into a concateaed histogram
+
+    Args:
+        img (numpy.ndarray): The image to be processed
+    
+    Returns:
+        list(int): The calculated histogram
+    """
+
     hist  = coalbp.feature(img, 1, 2)
     hist += coalbp.feature(img, 2, 4)
     hist += coalbp.feature(img, 4, 8)
@@ -78,15 +88,13 @@ def maattaHistogram(img):
 
 
 def colorspaceHistogram(img, space='RGB', useCoALBP=False):
-    """A method proposed by TODO which uses three LBP passes, one over each channel
+    """A method proposed by Boulkenafet et al. which uses three LBP passes, one over each channel
     of the given color space
 
     Args:
         img (numpy.ndarray): The image to be processed
-        space (str, optional): The color space to be used. Options are 'HSV', 'YCrCb' and
-        'Dual' (concatenation of 'HSV' and 'YCrCb'). If a different value is given the RGB
-        color space will be used
-        useCoALBP (bool): If true the CoALBP descriptor is used otherwise :math:`LBP_{8, 1}`
+        space (str, optional): The color space to be used. Options are 'HSV', 'YCrCb' and 'Dual' (concatenation of 'HSV' and 'YCrCb'). If a different value is given the RGB color space will be used
+        useCoALBP (bool, optional): If true the CoALBP descriptor is used otherwise :math:`LBP_{8, 1}`
     
     Returns:
         list(int): The concatination of the three calculated histograms

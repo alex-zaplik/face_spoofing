@@ -1,21 +1,20 @@
-Welcome to Face Spoofing's documentation!
-=========================================
+Welcome to Face Anti-spoofing's documentation!
+=================================================
 
 .. toctree::
    :maxdepth: 2
    :caption: Contents:
 
-   testEntry.rst
-   lbpcalc.rst
+   terminalEntry.rst
+   modes.rst
    data.rst
    facenorm.rst
+   lbpcalc.rst
+   coalbpcalc.rst
    methods.rst
-
-
+   modelhandlers.rst
 
 Indices and tables
 ==================
 
 * :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`

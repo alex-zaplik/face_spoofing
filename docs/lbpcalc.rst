@@ -1,5 +1,5 @@
-Local Binary Patterns implementation
-=========================================
+Local Binary Patterns implementation (lbpcalc.py)
+==================================================
 
 .. autofunction:: lbpcalc.isUniform
 

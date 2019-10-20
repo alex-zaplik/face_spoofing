@@ -12,11 +12,10 @@ def loadPhoto(path, histFunc, grayscale):
 
     Args:
         path (str): The path to the image
-        histFunc (TODO): The method of calculating histograms. Must be a callable
-        taking the image as the only argument and returning a histogram
+        histFunc (callable): The method of calculating histograms. Must be a callable taking the image as the only argument and returning a histogram
     
     Returns:
-        list(list(int)): The calculated histograms
+        list(list((int, (int, int, int, int)))): The calculated histograms along with the detected face box
     """
 
     fn = FaceNormalizer()
@@ -33,8 +32,21 @@ def loadPhoto(path, histFunc, grayscale):
 
 # Loading data
 def loadFromList(listFilePath, outPath, outName, histFunc, grayscale, fn, label, toFile=True):
-    """
-    TODO
+    """Load images from a single file containg relative paths, detect faces it those images,
+    calculates feature histograms and saves the results to another file (this can be disabled).
+
+    Args:
+        listFilePath (str): Path the a file containg a list (one element per line) of relative paths to images that will be processed
+        outPath (str): The path to a directory where the output file will be created
+        outName (str): The name of the output file (.txt will be added to it)
+        histFunc (callable): A function used to calculate a histogram for a single detected face
+        grayscale (bool): If true the images will be converted to grayscale before processing (that is required by some histogram functions)
+        fn (FaceNormalizer): An instance of a face normalizer used to align detected faces
+        label (int): 0 for true humans and 1 for spoofs
+        toFile (bool, optional): Can be set to false to disable output file creation
+    
+    Returns:
+        list(list(int)): The calculated histograms
     """
     
     hists = []
@@ -60,8 +72,21 @@ def loadFromList(listFilePath, outPath, outName, histFunc, grayscale, fn, label,
 
 # Load default training data
 def getTrainingData(dataPath, dataPrefix, dataSuffix, listPathTrue, listPathSpoof, histFunc, grayscale):
-    """
-    TODO
+    """Loads and processes image lists using the :func:`data.loadFromList` funcion
+
+    The output files will be called `<dataPrefix>_client_<dataSuffix>.txt` and `<dataPrefix>_imposter_<dataSuffix>.txt`
+
+    Args:
+        dataPath (str): The path to a directory where the output files will be created
+        dataPrefix (str): Prefix for the output file names
+        dataSuffix (str): Suffix for the output file names
+        listPathTrue (str): Path the a file containg a list of relative paths to true images (labeled 0)
+        listPathSpoof (str): Path the a file containg a list of relative paths to spoof images (labeled 1)
+        histFunc (callable): A function used to calculate a histogram for a single detected face
+        grayscale (bool): If true the images will be converted to grayscale before processing (that is required by some histogram functions)
+
+    Returns:
+        (list(list(int)), list(list(int))): The calculated histograms in the first column and their labels in the second in a randomized order
     """
 
     fn = FaceNormalizer()
@@ -77,8 +102,14 @@ def getTrainingData(dataPath, dataPrefix, dataSuffix, listPathTrue, listPathSpoo
 
 
 def loadDataFile(filePath, label):
-    """
-    TODO
+    """Loads a list of precalculated histograms from a text file
+
+    Args:
+        filePath (str): The path to the text file
+        label (int): 0 for true humans and 1 for spoofs
+    
+    Returns:
+        list(list(int)): The loaded histograms
     """
 
     hists = []
@@ -91,8 +122,17 @@ def loadDataFile(filePath, label):
 
 
 def getTrainingDataFromFile(path, prefix, suffix):
-    """
-    TODO
+    """Loads precalculated histograms from text files using :func:`data.loadDataFile`
+
+    The files the will be loaded should be called `<prefix>_client_<suffix>.txt` and `<prefix>_imposter_<suffix>.txt`
+
+    Args:
+        path (str): The directory where the text files are located
+        prefix (str): Prefix for the text file names
+        suffix (str): Suffix for the text file names
+
+    Returns:
+        (list(list(int)), list(list(int))): The calculated histograms in the first column and their labels in the second in a randomized order
     """
 
     print("\tLoading client data...")

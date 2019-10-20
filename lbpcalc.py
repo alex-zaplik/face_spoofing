@@ -139,8 +139,11 @@ class LBPCalc:
             w (int): Width of the image
             h (int): Height of the image
             deltas (list((int, int))): Pixel offsets for retiving samples
-            extract (TODO, optional): Method of extracting color values from a pixel
+            extract (callable, optional): Method of extracting color values from a pixel
             step (int, optional): Step size along a single axis
+        
+        Returns:
+            The calculated LBP descriptor
         """
         
         val = 0
@@ -158,9 +161,9 @@ class LBPCalc:
 
 
     def lbp(self, rawImage, size, windowSize=(-1, -1), xOffset=0, yOffset=0, extract=lambda c: c, step=1):
-        """The LBP operator
+        """The LBP calculator
 
-        TODO: Longer decsription
+        Described in detail in the thesis
 
         Args:
             rawImage (numpy.ndarray): The image to be processed
@@ -168,7 +171,7 @@ class LBPCalc:
             windowSize ((int, int)): The size of the part of the image that will be used in computation given as (height, width)
             xOffset (int, optional): Starting pixel x offset
             yOffset (int, optional): Starting pixel y offset
-            extract (TODO, optional): Method of extracting color values from a pixel
+            extract (callable, optional): Method of extracting color values from a pixel
             step (int, optional): Step size along a single axis
 
         Returns:
@@ -199,7 +202,7 @@ class LBPCalc:
             windowSize ((int, int)): The size of the part of the image that will be used in computation given as (height, width)
             xOffset (int, optional): Starting pixel x offset for the LBP operator
             yOffset (int, optional): Starting pixel y offset for the LBP operator
-            extract (TODO, optional): Method of extracting color values from a pixel
+            extract (callable, optional): Method of extracting color values from a pixel
             step (int, optional): LBP operator step size along a single axis
 
         Returns:

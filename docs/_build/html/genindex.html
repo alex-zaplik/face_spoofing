@@ -86,11 +86,14 @@
             
               <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul>
-<li class="toctree-l1"><a class="reference internal" href="testEntry.html">Terminal entry</a></li>
-<li class="toctree-l1"><a class="reference internal" href="lbpcalc.html">Local Binary Patterns implementation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="data.html">Data handling</a></li>
-<li class="toctree-l1"><a class="reference internal" href="facenorm.html">Face detection and normalization</a></li>
-<li class="toctree-l1"><a class="reference internal" href="methods.html">Histogram calculation methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="terminalEntry.html">User guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modes.html">Program running modes (modes.py)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="data.html">Data handling (data.py)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="facenorm.html">Face detection and normalization (facenorm.py)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lbpcalc.html">Local Binary Patterns implementation (lbpcalc.py)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="coalbpcalc.html">CoALBP implementation (coalbp.py)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="methods.html">Histogram calculation methods (methods.py)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modelhandlers.html">Model handling (modelhandlers.py)</a></li>
 </ul>
 
             
@@ -160,6 +163,7 @@
  <a href="#_"><strong>_</strong></a>
  | <a href="#C"><strong>C</strong></a>
  | <a href="#D"><strong>D</strong></a>
+ | <a href="#E"><strong>E</strong></a>
  | <a href="#F"><strong>F</strong></a>
  | <a href="#G"><strong>G</strong></a>
  | <a href="#H"><strong>H</strong></a>
@@ -169,14 +173,17 @@
  | <a href="#N"><strong>N</strong></a>
  | <a href="#P"><strong>P</strong></a>
  | <a href="#S"><strong>S</strong></a>
+ | <a href="#T"><strong>T</strong></a>
  
 </div>
 <h2 id="_">_</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="facenorm.html#facenorm.FaceNormalizer.__init__">__init__() (facenorm.FaceNormalizer method)</a>
+      <li><a href="coalbpcalc.html#coalbpcalc.CoALBP.__init__">__init__() (coalbpcalc.CoALBP method)</a>
 
       <ul>
+        <li><a href="facenorm.html#facenorm.FaceNormalizer.__init__">(facenorm.FaceNormalizer method)</a>
+</li>
         <li><a href="lbpcalc.html#lbpcalc.LBPCalc.__init__">(lbpcalc.LBPCalc method)</a>
 </li>
       </ul></li>
@@ -188,11 +195,15 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="lbpcalc.html#lbpcalc.LBPCalc.calcMap">calcMap() (lbpcalc.LBPCalc method)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="lbpcalc.html#lbpcalc.LBPCalc.calcRevMap">calcRevMap() (lbpcalc.LBPCalc method)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="coalbpcalc.html#coalbpcalc.CoALBP">CoALBP (class in coalbpcalc)</a>
+</li>
       <li><a href="methods.html#methods.colorspaceHistogram">colorspaceHistogram() (in module methods)</a>
+</li>
+      <li><a href="coalbpcalc.html#coalbpcalc.CoALBP.cooccurrenceMatrix">cooccurrenceMatrix() (coalbpcalc.CoALBP method)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -205,10 +216,26 @@
   </ul></td>
 </tr></table>
 
+<h2 id="E">E</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="modelhandlers.html#modelhandlers.eerCalc">eerCalc() (in module modelhandlers)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="modelhandlers.html#modelhandlers.eerScore">eerScore() (in module modelhandlers)</a>
+</li>
+  </ul></td>
+</tr></table>
+
 <h2 id="F">F</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="facenorm.html#facenorm.FaceNormalizer">FaceNormalizer (class in facenorm)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="coalbpcalc.html#coalbpcalc.CoALBP.feature">feature() (coalbpcalc.CoALBP method)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -218,11 +245,13 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="data.html#data.getTrainingData">getTrainingData() (in module data)</a>
 </li>
-  </ul></td>
-  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="data.html#data.getTrainingDataFromFile">getTrainingDataFromFile() (in module data)</a>
 </li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="methods.html#methods.grayscaleLBP">grayscaleLBP() (in module methods)</a>
+</li>
+      <li><a href="methods.html#methods.grayscaleMultiCoALBP">grayscaleMultiCoALBP() (in module methods)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -238,6 +267,10 @@
 <h2 id="I">I</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="modelhandlers.html#modelhandlers.initLogfile">initLogfile() (in module modelhandlers)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="lbpcalc.html#lbpcalc.isUniform">isUniform() (in module lbpcalc)</a>
 </li>
   </ul></td>
@@ -246,12 +279,20 @@
 <h2 id="L">L</h2>
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="lbpcalc.html#lbpcalc.LBPCalc.lbp">lbp() (lbpcalc.LBPCalc method)</a>
+      <li><a href="coalbpcalc.html#coalbpcalc.CoALBP.lbp">lbp() (coalbpcalc.CoALBP method)</a>
+
+      <ul>
+        <li><a href="lbpcalc.html#lbpcalc.LBPCalc.lbp">(lbpcalc.LBPCalc method)</a>
 </li>
+      </ul></li>
       <li><a href="lbpcalc.html#lbpcalc.LBPCalc">LBPCalc (class in lbpcalc)</a>
 </li>
-      <li><a href="lbpcalc.html#lbpcalc.LBPCalc.lbpOperator">lbpOperator() (lbpcalc.LBPCalc method)</a>
+      <li><a href="coalbpcalc.html#coalbpcalc.CoALBP.lbpOperator">lbpOperator() (coalbpcalc.CoALBP method)</a>
+
+      <ul>
+        <li><a href="lbpcalc.html#lbpcalc.LBPCalc.lbpOperator">(lbpcalc.LBPCalc method)</a>
 </li>
+      </ul></li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="data.html#data.loadClassifier">loadClassifier() (in module data)</a>
@@ -262,6 +303,8 @@
 </li>
       <li><a href="data.html#data.loadPhoto">loadPhoto() (in module data)</a>
 </li>
+      <li><a href="modelhandlers.html#modelhandlers.log">log() (in module modelhandlers)</a>
+</li>
   </ul></td>
 </tr></table>
 
@@ -270,9 +313,21 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="methods.html#methods.maattaHistogram">maattaHistogram() (in module methods)</a>
 </li>
+      <li><a href="methods.html#module-methods">methods (module)</a>
+</li>
+      <li><a href="modes.html#modes.modeClass">modeClass() (in module modes)</a>
+</li>
+      <li><a href="modes.html#modes.modeGen">modeGen() (in module modes)</a>
+</li>
   </ul></td>
   <td style="width: 33%; vertical-align: top;"><ul>
-      <li><a href="methods.html#module-methods">methods (module)</a>
+      <li><a href="modelhandlers.html#module-modelhandlers">modelhandlers (module)</a>
+</li>
+      <li><a href="modes.html#module-modes">modes (module)</a>
+</li>
+      <li><a href="modes.html#modes.modeTrain">modeTrain() (in module modes)</a>
+</li>
+      <li><a href="modes.html#modes.modeTune">modeTune() (in module modes)</a>
 </li>
   </ul></td>
 </tr></table>
@@ -294,6 +349,8 @@
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="lbpcalc.html#lbpcalc.LBPCalc.precalcMaps">precalcMaps() (lbpcalc.LBPCalc method)</a>
 </li>
+      <li><a href="modelhandlers.html#modelhandlers.predict">predict() (in module modelhandlers)</a>
+</li>
   </ul></td>
 </tr></table>
 
@@ -301,6 +358,18 @@
 <table style="width: 100%" class="indextable genindextable"><tr>
   <td style="width: 33%; vertical-align: top;"><ul>
       <li><a href="data.html#data.saveClassifier">saveClassifier() (in module data)</a>
+</li>
+  </ul></td>
+</tr></table>
+
+<h2 id="T">T</h2>
+<table style="width: 100%" class="indextable genindextable"><tr>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="modelhandlers.html#modelhandlers.trainModel">trainModel() (in module modelhandlers)</a>
+</li>
+  </ul></td>
+  <td style="width: 33%; vertical-align: top;"><ul>
+      <li><a href="modelhandlers.html#modelhandlers.tuneModel">tuneModel() (in module modelhandlers)</a>
 </li>
   </ul></td>
 </tr></table>

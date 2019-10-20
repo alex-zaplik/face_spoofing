@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Data handling &mdash; Face Spoofing 0.5 documentation</title>
+  <title>Data handling (data.py) &mdash; Face Spoofing 0.5 documentation</title>
   
 
   
@@ -36,8 +36,8 @@
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Face detection and normalization" href="facenorm.html" />
-    <link rel="prev" title="Local Binary Patterns implementation" href="lbpcalc.html" /> 
+    <link rel="next" title="Face detection and normalization (facenorm.py)" href="facenorm.html" />
+    <link rel="prev" title="Program running modes (modes.py)" href="modes.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -87,11 +87,14 @@
             
               <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="testEntry.html">Terminal entry</a></li>
-<li class="toctree-l1"><a class="reference internal" href="lbpcalc.html">Local Binary Patterns implementation</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Data handling</a></li>
-<li class="toctree-l1"><a class="reference internal" href="facenorm.html">Face detection and normalization</a></li>
-<li class="toctree-l1"><a class="reference internal" href="methods.html">Histogram calculation methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="terminalEntry.html">User guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modes.html">Program running modes (modes.py)</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Data handling (data.py)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="facenorm.html">Face detection and normalization (facenorm.py)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lbpcalc.html">Local Binary Patterns implementation (lbpcalc.py)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="coalbpcalc.html">CoALBP implementation (coalbp.py)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="methods.html">Histogram calculation methods (methods.py)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modelhandlers.html">Model handling (modelhandlers.py)</a></li>
 </ul>
 
             
@@ -137,7 +140,7 @@
     
       <li><a href="index.html">Docs</a> &raquo;</li>
         
-      <li>Data handling</li>
+      <li>Data handling (data.py)</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -157,17 +160,53 @@
            <div itemprop="articleBody">
             
   <div class="section" id="module-data">
-<span id="data-handling"></span><h1>Data handling<a class="headerlink" href="#module-data" title="Permalink to this headline">¶</a></h1>
+<span id="data-handling-data-py"></span><h1>Data handling (data.py)<a class="headerlink" href="#module-data" title="Permalink to this headline">¶</a></h1>
 <dl class="function">
 <dt id="data.getTrainingData">
 <code class="sig-prename descclassname">data.</code><code class="sig-name descname">getTrainingData</code><span class="sig-paren">(</span><em class="sig-param">dataPath</em>, <em class="sig-param">dataPrefix</em>, <em class="sig-param">dataSuffix</em>, <em class="sig-param">listPathTrue</em>, <em class="sig-param">listPathSpoof</em>, <em class="sig-param">histFunc</em>, <em class="sig-param">grayscale</em><span class="sig-paren">)</span><a class="headerlink" href="#data.getTrainingData" title="Permalink to this definition">¶</a></dt>
-<dd><p>TODO</p>
+<dd><p>Loads and processes image lists using the <a class="reference internal" href="#data.loadFromList" title="data.loadFromList"><code class="xref py py-func docutils literal notranslate"><span class="pre">data.loadFromList()</span></code></a> funcion</p>
+<p>The output files will be called <cite>&lt;dataPrefix&gt;_client_&lt;dataSuffix&gt;.txt</cite> and <cite>&lt;dataPrefix&gt;_imposter_&lt;dataSuffix&gt;.txt</cite></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>dataPath</strong> (<em>str</em>) – The path to a directory where the output files will be created</p></li>
+<li><p><strong>dataPrefix</strong> (<em>str</em>) – Prefix for the output file names</p></li>
+<li><p><strong>dataSuffix</strong> (<em>str</em>) – Suffix for the output file names</p></li>
+<li><p><strong>listPathTrue</strong> (<em>str</em>) – Path the a file containg a list of relative paths to true images (labeled 0)</p></li>
+<li><p><strong>listPathSpoof</strong> (<em>str</em>) – Path the a file containg a list of relative paths to spoof images (labeled 1)</p></li>
+<li><p><strong>histFunc</strong> (<em>callable</em>) – A function used to calculate a histogram for a single detected face</p></li>
+<li><p><strong>grayscale</strong> (<em>bool</em>) – If true the images will be converted to grayscale before processing (that is required by some histogram functions)</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The calculated histograms in the first column and their labels in the second in a randomized order</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>(list(list(int)), list(list(int)))</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="function">
 <dt id="data.getTrainingDataFromFile">
 <code class="sig-prename descclassname">data.</code><code class="sig-name descname">getTrainingDataFromFile</code><span class="sig-paren">(</span><em class="sig-param">path</em>, <em class="sig-param">prefix</em>, <em class="sig-param">suffix</em><span class="sig-paren">)</span><a class="headerlink" href="#data.getTrainingDataFromFile" title="Permalink to this definition">¶</a></dt>
-<dd><p>TODO</p>
+<dd><p>Loads precalculated histograms from text files using <a class="reference internal" href="#data.loadDataFile" title="data.loadDataFile"><code class="xref py py-func docutils literal notranslate"><span class="pre">data.loadDataFile()</span></code></a></p>
+<p>The files the will be loaded should be called <cite>&lt;prefix&gt;_client_&lt;suffix&gt;.txt</cite> and <cite>&lt;prefix&gt;_imposter_&lt;suffix&gt;.txt</cite></p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>path</strong> (<em>str</em>) – The directory where the text files are located</p></li>
+<li><p><strong>prefix</strong> (<em>str</em>) – Prefix for the text file names</p></li>
+<li><p><strong>suffix</strong> (<em>str</em>) – Suffix for the text file names</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The calculated histograms in the first column and their labels in the second in a randomized order</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>(list(list(int)), list(list(int)))</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="function">
@@ -189,13 +228,48 @@ and the method that was used to train it</p>
 <dl class="function">
 <dt id="data.loadDataFile">
 <code class="sig-prename descclassname">data.</code><code class="sig-name descname">loadDataFile</code><span class="sig-paren">(</span><em class="sig-param">filePath</em>, <em class="sig-param">label</em><span class="sig-paren">)</span><a class="headerlink" href="#data.loadDataFile" title="Permalink to this definition">¶</a></dt>
-<dd><p>TODO</p>
+<dd><p>Loads a list of precalculated histograms from a text file</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>filePath</strong> (<em>str</em>) – The path to the text file</p></li>
+<li><p><strong>label</strong> (<em>int</em>) – 0 for true humans and 1 for spoofs</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The loaded histograms</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>list(list(int))</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="function">
 <dt id="data.loadFromList">
 <code class="sig-prename descclassname">data.</code><code class="sig-name descname">loadFromList</code><span class="sig-paren">(</span><em class="sig-param">listFilePath</em>, <em class="sig-param">outPath</em>, <em class="sig-param">outName</em>, <em class="sig-param">histFunc</em>, <em class="sig-param">grayscale</em>, <em class="sig-param">fn</em>, <em class="sig-param">label</em>, <em class="sig-param">toFile=True</em><span class="sig-paren">)</span><a class="headerlink" href="#data.loadFromList" title="Permalink to this definition">¶</a></dt>
-<dd><p>TODO</p>
+<dd><p>Load images from a single file containg relative paths, detect faces it those images,
+calculates feature histograms and saves the results to another file (this can be disabled).</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>listFilePath</strong> (<em>str</em>) – Path the a file containg a list (one element per line) of relative paths to images that will be processed</p></li>
+<li><p><strong>outPath</strong> (<em>str</em>) – The path to a directory where the output file will be created</p></li>
+<li><p><strong>outName</strong> (<em>str</em>) – The name of the output file (.txt will be added to it)</p></li>
+<li><p><strong>histFunc</strong> (<em>callable</em>) – A function used to calculate a histogram for a single detected face</p></li>
+<li><p><strong>grayscale</strong> (<em>bool</em>) – If true the images will be converted to grayscale before processing (that is required by some histogram functions)</p></li>
+<li><p><strong>fn</strong> (<a class="reference internal" href="facenorm.html#facenorm.FaceNormalizer" title="facenorm.FaceNormalizer"><em>FaceNormalizer</em></a>) – An instance of a face normalizer used to align detected faces</p></li>
+<li><p><strong>label</strong> (<em>int</em>) – 0 for true humans and 1 for spoofs</p></li>
+<li><p><strong>toFile</strong> (<em>bool</em><em>, </em><em>optional</em>) – Can be set to false to disable output file creation</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The calculated histograms</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>list(list(int))</p>
+</dd>
+</dl>
 </dd></dl>
 
 <dl class="function">
@@ -207,15 +281,14 @@ histograms for each of them used the method given</p>
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>path</strong> (<em>str</em>) – The path to the image</p></li>
-<li><p><strong>histFunc</strong> (<em>TODO</em>) – The method of calculating histograms. Must be a callable</p></li>
-<li><p><strong>the image as the only argument and returning a histogram</strong> (<em>taking</em>) – </p></li>
+<li><p><strong>histFunc</strong> (<em>callable</em>) – The method of calculating histograms. Must be a callable taking the image as the only argument and returning a histogram</p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>The calculated histograms</p>
+<dd class="field-even"><p>The calculated histograms along with the detected face box</p>
 </dd>
 <dt class="field-odd">Return type</dt>
-<dd class="field-odd"><p>list(list(int))</p>
+<dd class="field-odd"><p>list(list((int, (int, int, int, int))))</p>
 </dd>
 </dl>
 </dd></dl>
@@ -247,10 +320,10 @@ and the method that was used to train it</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="facenorm.html" class="btn btn-neutral float-right" title="Face detection and normalization" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="facenorm.html" class="btn btn-neutral float-right" title="Face detection and normalization (facenorm.py)" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="lbpcalc.html" class="btn btn-neutral float-left" title="Local Binary Patterns implementation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="modes.html" class="btn btn-neutral float-left" title="Program running modes (modes.py)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

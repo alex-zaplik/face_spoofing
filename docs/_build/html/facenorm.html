@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Face detection and normalization &mdash; Face Spoofing 0.5 documentation</title>
+  <title>Face detection and normalization (facenorm.py) &mdash; Face Spoofing 0.5 documentation</title>
   
 
   
@@ -36,8 +36,8 @@
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Histogram calculation methods" href="methods.html" />
-    <link rel="prev" title="Data handling" href="data.html" /> 
+    <link rel="next" title="Local Binary Patterns implementation (lbpcalc.py)" href="lbpcalc.html" />
+    <link rel="prev" title="Data handling (data.py)" href="data.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -87,11 +87,14 @@
             
               <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="testEntry.html">Terminal entry</a></li>
-<li class="toctree-l1"><a class="reference internal" href="lbpcalc.html">Local Binary Patterns implementation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="data.html">Data handling</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Face detection and normalization</a></li>
-<li class="toctree-l1"><a class="reference internal" href="methods.html">Histogram calculation methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="terminalEntry.html">User guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modes.html">Program running modes (modes.py)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="data.html">Data handling (data.py)</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Face detection and normalization (facenorm.py)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lbpcalc.html">Local Binary Patterns implementation (lbpcalc.py)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="coalbpcalc.html">CoALBP implementation (coalbp.py)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="methods.html">Histogram calculation methods (methods.py)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modelhandlers.html">Model handling (modelhandlers.py)</a></li>
 </ul>
 
             
@@ -137,7 +140,7 @@
     
       <li><a href="index.html">Docs</a> &raquo;</li>
         
-      <li>Face detection and normalization</li>
+      <li>Face detection and normalization (facenorm.py)</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -156,12 +159,12 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="face-detection-and-normalization">
-<h1>Face detection and normalization<a class="headerlink" href="#face-detection-and-normalization" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="face-detection-and-normalization-facenorm-py">
+<h1>Face detection and normalization (facenorm.py)<a class="headerlink" href="#face-detection-and-normalization-facenorm-py" title="Permalink to this headline">¶</a></h1>
 <dl class="class">
 <dt id="facenorm.FaceNormalizer">
 <em class="property">class </em><code class="sig-prename descclassname">facenorm.</code><code class="sig-name descname">FaceNormalizer</code><span class="sig-paren">(</span><em class="sig-param">desiredFaceWidth=203</em>, <em class="sig-param">desiredLeftEye=(0.25</em>, <em class="sig-param">0.25)</em><span class="sig-paren">)</span><a class="headerlink" href="#facenorm.FaceNormalizer" title="Permalink to this definition">¶</a></dt>
-<dd><p>This class uses imutils.face_utils.FaceAligner to normalize a square photo
+<dd><p>This class uses <code class="xref py py-class docutils literal notranslate"><span class="pre">imutils.face_utils.FaceAligner</span></code> to normalize a square photo
 of a face. This is used before feature extraction to achive more reliable
 results</p>
 <dl class="method">
@@ -192,11 +195,7 @@ results</p>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
-<dd class="field-even"><p>A list of detected and normalized
-faces. If ‘returnBox’ was set tu true the list contains pairs with an ndarray
-image of the face and a rectangle defined by the x, y coordinated of the top-left
-corner, the width and the height. If ‘returnBox’ was set to false just a list of
-ndarrays is returned</p>
+<dd class="field-even"><p>A list of detected and normalized faces. If ‘returnBox’ was set tu true the list contains pairs with an ndarray image of the face and a rectangle defined by the x, y coordinated of the top-left corner, the width and the height. If ‘returnBox’ was set to false just a list of ndarrays is returned</p>
 </dd>
 <dt class="field-odd">Return type</dt>
 <dd class="field-odd"><p>list((numpy.ndarray, (int, int, int, int)))</p>
@@ -216,10 +215,10 @@ ndarrays is returned</p>
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="methods.html" class="btn btn-neutral float-right" title="Histogram calculation methods" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="lbpcalc.html" class="btn btn-neutral float-right" title="Local Binary Patterns implementation (lbpcalc.py)" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="data.html" class="btn btn-neutral float-left" title="Data handling" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="data.html" class="btn btn-neutral float-left" title="Data handling (data.py)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

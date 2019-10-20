@@ -1,5 +1,5 @@
-Data handling (data.py)
+Program running modes (modes.py)
 =========================================
 
-.. automodule:: data
+.. automodule:: modes
    :members:

@@ -1,0 +1,351 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Model handling (modelhandlers.py) &mdash; Face Spoofing 0.5 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
+
+    
+
+  
+  <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="genindex.html" />
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="prev" title="Histogram calculation methods (methods.py)" href="methods.html" /> 
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+          
+
+          
+            <a href="index.html" class="icon icon-home"> Face Spoofing
+          
+
+          
+          </a>
+
+          
+            
+            
+              <div class="version">
+                0.5
+              </div>
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <p class="caption"><span class="caption-text">Contents:</span></p>
+<ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="terminalEntry.html">User guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modes.html">Program running modes (modes.py)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="data.html">Data handling (data.py)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="facenorm.html">Face detection and normalization (facenorm.py)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lbpcalc.html">Local Binary Patterns implementation (lbpcalc.py)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="coalbpcalc.html">CoALBP implementation (coalbp.py)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="methods.html">Histogram calculation methods (methods.py)</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Model handling (modelhandlers.py)</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">Face Spoofing</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="index.html">Docs</a> &raquo;</li>
+        
+      <li>Model handling (modelhandlers.py)</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+            
+            <a href="_sources/modelhandlers.rst.txt" rel="nofollow"> View page source</a>
+          
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <div class="section" id="module-modelhandlers">
+<span id="model-handling-modelhandlers-py"></span><h1>Model handling (modelhandlers.py)<a class="headerlink" href="#module-modelhandlers" title="Permalink to this headline">¶</a></h1>
+<dl class="function">
+<dt id="modelhandlers.eerCalc">
+<code class="sig-prename descclassname">modelhandlers.</code><code class="sig-name descname">eerCalc</code><span class="sig-paren">(</span><em class="sig-param">yTrue</em>, <em class="sig-param">yPred</em><span class="sig-paren">)</span><a class="headerlink" href="#modelhandlers.eerCalc" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates the EER and the corresponding threshold using a ROC curve</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>yTrue</strong> (<em>list</em><em>(</em><em>int</em><em>)</em>) – Correct labels</p></li>
+<li><p><strong>yPred</strong> (<em>list</em><em>(</em><em>int</em><em>) or </em><em>list</em><em>(</em><em>(</em><em>float</em><em>, </em><em>int</em><em>)</em><em>)</em>) – Simple or probabilistic classification results</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The EER and the corresponding threshold</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>(float, float)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="modelhandlers.eerScore">
+<code class="sig-prename descclassname">modelhandlers.</code><code class="sig-name descname">eerScore</code><span class="sig-paren">(</span><em class="sig-param">yTrue</em>, <em class="sig-param">yPred</em><span class="sig-paren">)</span><a class="headerlink" href="#modelhandlers.eerScore" title="Permalink to this definition">¶</a></dt>
+<dd><p>Calculates the EER using a ROC curve</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>yTrue</strong> (<em>list</em><em>(</em><em>int</em><em>)</em>) – Correct labels</p></li>
+<li><p><strong>yPred</strong> (<em>list</em><em>(</em><em>int</em><em>) or </em><em>list</em><em>(</em><em>(</em><em>float</em><em>, </em><em>int</em><em>)</em><em>)</em>) – Simple or probabilistic classification results</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The EER</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>float</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="modelhandlers.initLogfile">
+<code class="sig-prename descclassname">modelhandlers.</code><code class="sig-name descname">initLogfile</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#modelhandlers.initLogfile" title="Permalink to this definition">¶</a></dt>
+<dd><p>Creates a new log file in the ./logs folder</p>
+</dd></dl>
+
+<dl class="function">
+<dt id="modelhandlers.log">
+<code class="sig-prename descclassname">modelhandlers.</code><code class="sig-name descname">log</code><span class="sig-paren">(</span><em class="sig-param">text=''</em>, <em class="sig-param">end='\n'</em><span class="sig-paren">)</span><a class="headerlink" href="#modelhandlers.log" title="Permalink to this definition">¶</a></dt>
+<dd><p>Prints text in the terminal and appends it to a log file if one
+was previoulsy created using initLogFile</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>text</strong> (<em>str</em><em>, </em><em>optional</em>) – Text to be logged</p></li>
+<li><p><strong>end</strong> (<em>str</em><em>, </em><em>optional</em>) – The suffix of the logged text (simmilar to print’s end parameter)</p></li>
+</ul>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="modelhandlers.predict">
+<code class="sig-prename descclassname">modelhandlers.</code><code class="sig-name descname">predict</code><span class="sig-paren">(</span><em class="sig-param">clf</em>, <em class="sig-param">X</em>, <em class="sig-param">threshold</em>, <em class="sig-param">yTrue=None</em>, <em class="sig-param">probability=False</em><span class="sig-paren">)</span><a class="headerlink" href="#modelhandlers.predict" title="Permalink to this definition">¶</a></dt>
+<dd><p>Classifies a list of feature vectors using a given SVM.</p>
+<p>By defalt the return value is a list of predicted labels but if the feature vectors
+are given along with a bounding box (result of face detection), that box will also be
+appended to the preducted label (as a tuple). If probability is set to True the probabilistic
+prediction result will also be appended.</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>clf</strong> (<em>SVM</em>) – The classifier to be used</p></li>
+<li><p><strong>X</strong> (<em>list</em><em>(</em><em>list</em><em>(</em><em>int</em><em>)</em><em>) or </em><em>list</em><em>(</em><em>list</em><em>(</em><em>(</em><em>int</em><em>, </em><em>(</em><em>int</em><em>, </em><em>int</em><em>, </em><em>int</em><em>, </em><em>int</em><em>)</em><em>)</em><em>)</em><em>)</em>) – The list of feature vectors (histograms), optionally along with the detected face box</p></li>
+<li><p><strong>threshold</strong> (<em>float</em>) – The decision threshold</p></li>
+<li><p><strong>yTrue</strong> (<em>list</em><em>(</em><em>list</em><em>(</em><em>int</em><em>)</em><em>)</em><em>, </em><em>optional</em>) – If given prediction statistics will be printed to the console</p></li>
+<li><p><strong>probability</strong> (<em>bool</em><em>, </em><em>optional</em>) – If true probabilistics results will be returned</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The calculated results (described above)</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>list(int) or list((int, (int, int, int, int))) or list((int, (int, int, int, int), float))</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="modelhandlers.trainModel">
+<code class="sig-prename descclassname">modelhandlers.</code><code class="sig-name descname">trainModel</code><span class="sig-paren">(</span><em class="sig-param">xTrain</em>, <em class="sig-param">yTrain</em>, <em class="sig-param">xTest</em>, <em class="sig-param">yTest</em>, <em class="sig-param">C</em>, <em class="sig-param">gamma</em>, <em class="sig-param">kernel='rbf'</em>, <em class="sig-param">verbose=False</em><span class="sig-paren">)</span><a class="headerlink" href="#modelhandlers.trainModel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Trains an SVM model with given data and parameters</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>xTrain</strong> (<em>list</em><em>(</em><em>list</em><em>(</em><em>int</em><em>)</em><em>)</em>) – List of training histograms</p></li>
+<li><p><strong>yTrain</strong> (<em>list</em><em>(</em><em>int</em><em>)</em>) – Correct labels for the training histograms</p></li>
+<li><p><strong>xTest</strong> (<em>list</em><em>(</em><em>list</em><em>(</em><em>int</em><em>)</em><em>)</em>) – List of test histograms</p></li>
+<li><p><strong>yTest</strong> (<em>list</em><em>(</em><em>int</em><em>)</em>) – Correct labels for the test histograms</p></li>
+<li><p><strong>C</strong> (<em>float</em>) – The C parameter of the SMV</p></li>
+<li><p><strong>gamma</strong> (<em>float</em>) – The gamma parameter of the SMV</p></li>
+<li><p><strong>kernel</strong> (<em>str</em><em>, </em><em>optional</em>) – The kernel of the SVM (can be ‘rbf’ or ‘linear’)</p></li>
+<li><p><strong>varbose</strong> (<em>bool</em><em>, </em><em>optional</em>) – If set to true training information will be printed to the console</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The trained SVM, the EER threshold and a predictor for later use</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>(SVM, float, callable)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="modelhandlers.tuneModel">
+<code class="sig-prename descclassname">modelhandlers.</code><code class="sig-name descname">tuneModel</code><span class="sig-paren">(</span><em class="sig-param">xTrain</em>, <em class="sig-param">yTrain</em>, <em class="sig-param">xTest</em>, <em class="sig-param">yTest</em>, <em class="sig-param">kernel='rbf'</em>, <em class="sig-param">probability=True</em>, <em class="sig-param">loging=False</em><span class="sig-paren">)</span><a class="headerlink" href="#modelhandlers.tuneModel" title="Permalink to this definition">¶</a></dt>
+<dd><p>Tunes an SVM model with given data</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><ul class="simple">
+<li><p><strong>xTrain</strong> (<em>list</em><em>(</em><em>list</em><em>(</em><em>int</em><em>)</em><em>)</em>) – List of training histograms</p></li>
+<li><p><strong>yTrain</strong> (<em>list</em><em>(</em><em>int</em><em>)</em>) – Correct labels for the training histograms</p></li>
+<li><p><strong>xTest</strong> (<em>list</em><em>(</em><em>list</em><em>(</em><em>int</em><em>)</em><em>)</em>) – List of test histograms</p></li>
+<li><p><strong>yTest</strong> (<em>list</em><em>(</em><em>int</em><em>)</em>) – Correct labels for the test histograms</p></li>
+<li><p><strong>kernel</strong> (<em>str</em><em>, </em><em>optional</em>) – The kernel of the SVM (can be ‘rbf’ or ‘linear’)</p></li>
+<li><p><strong>probability</strong> (<em>bool</em><em>, </em><em>optional</em>) – If set probabilistic SVM training will be used</p></li>
+<li><p><strong>loging</strong> (<em>bool</em><em>, </em><em>optional</em>) – If set tuning statistics will be saved in a log file</p></li>
+</ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The best SVM, its EER threshold and a predictor for later use</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>(SVM, float, callable)</p>
+</dd>
+</dl>
+</dd></dl>
+
+</div>
+
+
+           </div>
+           
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+      
+        <a href="methods.html" class="btn btn-neutral float-left" title="Histogram calculation methods (methods.py)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2019, Aleksander Lasecki
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script>
+
+  
+  
+    
+   
+
+</body>
+</html>

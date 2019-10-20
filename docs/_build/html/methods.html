@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>Histogram calculation methods &mdash; Face Spoofing 0.5 documentation</title>
+  <title>Histogram calculation methods (methods.py) &mdash; Face Spoofing 0.5 documentation</title>
   
 
   
@@ -36,7 +36,8 @@
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="prev" title="Face detection and normalization" href="facenorm.html" /> 
+    <link rel="next" title="Model handling (modelhandlers.py)" href="modelhandlers.html" />
+    <link rel="prev" title="CoALBP implementation (coalbp.py)" href="coalbpcalc.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
@@ -86,11 +87,14 @@
             
               <p class="caption"><span class="caption-text">Contents:</span></p>
 <ul class="current">
-<li class="toctree-l1"><a class="reference internal" href="testEntry.html">Terminal entry</a></li>
-<li class="toctree-l1"><a class="reference internal" href="lbpcalc.html">Local Binary Patterns implementation</a></li>
-<li class="toctree-l1"><a class="reference internal" href="data.html">Data handling</a></li>
-<li class="toctree-l1"><a class="reference internal" href="facenorm.html">Face detection and normalization</a></li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Histogram calculation methods</a></li>
+<li class="toctree-l1"><a class="reference internal" href="terminalEntry.html">User guide</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modes.html">Program running modes (modes.py)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="data.html">Data handling (data.py)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="facenorm.html">Face detection and normalization (facenorm.py)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="lbpcalc.html">Local Binary Patterns implementation (lbpcalc.py)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="coalbpcalc.html">CoALBP implementation (coalbp.py)</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Histogram calculation methods (methods.py)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="modelhandlers.html">Model handling (modelhandlers.py)</a></li>
 </ul>
 
             
@@ -136,7 +140,7 @@
     
       <li><a href="index.html">Docs</a> &raquo;</li>
         
-      <li>Histogram calculation methods</li>
+      <li>Histogram calculation methods (methods.py)</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -156,20 +160,18 @@
            <div itemprop="articleBody">
             
   <div class="section" id="module-methods">
-<span id="histogram-calculation-methods"></span><h1>Histogram calculation methods<a class="headerlink" href="#module-methods" title="Permalink to this headline">¶</a></h1>
+<span id="histogram-calculation-methods-methods-py"></span><h1>Histogram calculation methods (methods.py)<a class="headerlink" href="#module-methods" title="Permalink to this headline">¶</a></h1>
 <dl class="function">
 <dt id="methods.colorspaceHistogram">
 <code class="sig-prename descclassname">methods.</code><code class="sig-name descname">colorspaceHistogram</code><span class="sig-paren">(</span><em class="sig-param">img</em>, <em class="sig-param">space='RGB'</em>, <em class="sig-param">useCoALBP=False</em><span class="sig-paren">)</span><a class="headerlink" href="#methods.colorspaceHistogram" title="Permalink to this definition">¶</a></dt>
-<dd><p>A method proposed by TODO which uses three LBP passes, one over each channel
+<dd><p>A method proposed by Boulkenafet et al. which uses three LBP passes, one over each channel
 of the given color space</p>
 <dl class="field-list simple">
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>img</strong> (<em>numpy.ndarray</em>) – The image to be processed</p></li>
-<li><p><strong>space</strong> (<em>str</em><em>, </em><em>optional</em>) – The color space to be used. Options are ‘HSV’, ‘YCrCb’ and</p></li>
-<li><p><strong>'Dual'</strong> (<em>concatenation of 'HSV' and 'YCrCb'</em>) – </p></li>
-<li><p><strong>space will be used</strong> (<em>color</em>) – </p></li>
-<li><p><strong>useCoALBP</strong> (<em>bool</em>) – If true the CoALBP descriptor is used otherwise <span class="math notranslate nohighlight">\(LBP_{8, 1}\)</span></p></li>
+<li><p><strong>space</strong> (<em>str</em><em>, </em><em>optional</em>) – The color space to be used. Options are ‘HSV’, ‘YCrCb’ and ‘Dual’ (concatenation of ‘HSV’ and ‘YCrCb’). If a different value is given the RGB color space will be used</p></li>
+<li><p><strong>useCoALBP</strong> (<em>bool</em><em>, </em><em>optional</em>) – If true the CoALBP descriptor is used otherwise <span class="math notranslate nohighlight">\(LBP_{8, 1}\)</span></p></li>
 </ul>
 </dd>
 <dt class="field-even">Returns</dt>
@@ -190,8 +192,26 @@ image into a histogram</p>
 <dt class="field-odd">Parameters</dt>
 <dd class="field-odd"><ul class="simple">
 <li><p><strong>img</strong> (<em>numpy.ndarray</em>) – The image to be processed</p></li>
-<li><p><strong>useCoALBP</strong> (<em>bool</em>) – If true the CoALBP descriptor is used otherwise <span class="math notranslate nohighlight">\(LBP_{8, 1}\)</span></p></li>
+<li><p><strong>useCoALBP</strong> (<em>bool</em><em>, </em><em>optional</em>) – If true the CoALBP descriptor is used otherwise <span class="math notranslate nohighlight">\(LBP_{8, 1}\)</span></p></li>
 </ul>
+</dd>
+<dt class="field-even">Returns</dt>
+<dd class="field-even"><p>The calculated histogram</p>
+</dd>
+<dt class="field-odd">Return type</dt>
+<dd class="field-odd"><p>list(int)</p>
+</dd>
+</dl>
+</dd></dl>
+
+<dl class="function">
+<dt id="methods.grayscaleMultiCoALBP">
+<code class="sig-prename descclassname">methods.</code><code class="sig-name descname">grayscaleMultiCoALBP</code><span class="sig-paren">(</span><em class="sig-param">img</em><span class="sig-paren">)</span><a class="headerlink" href="#methods.grayscaleMultiCoALBP" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method combines three sizes of the CoALBP operator: (1, 2), (2, 4) and (4, 8)
+into a concateaed histogram</p>
+<dl class="field-list simple">
+<dt class="field-odd">Parameters</dt>
+<dd class="field-odd"><p><strong>img</strong> (<em>numpy.ndarray</em>) – The image to be processed</p>
 </dd>
 <dt class="field-even">Returns</dt>
 <dd class="field-even"><p>The calculated histogram</p>
@@ -231,8 +251,10 @@ entire image and nine <span class="math notranslate nohighlight">\(LBP_{8, 2}\)<
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
+        <a href="modelhandlers.html" class="btn btn-neutral float-right" title="Model handling (modelhandlers.py)" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
-        <a href="facenorm.html" class="btn btn-neutral float-left" title="Face detection and normalization" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+        <a href="coalbpcalc.html" class="btn btn-neutral float-left" title="CoALBP implementation (coalbp.py)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   

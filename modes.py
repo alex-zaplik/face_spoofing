@@ -5,6 +5,20 @@ import cv2
 import data
 
 def modeGen(args):
+    """Mode used for generating training and testing data for later use in
+    the tuning or training mode
+
+    The parameters that are required in commandline arguments are: dataPath,
+    dataPrefix, method, trainTrue, trainTrue
+
+    The optional parameters are: CoALBP, testSpoof, testSpoof
+
+    The data is generated using getTrainingData from the data handling module
+
+    Args:
+        args: The parsed command line arguments
+    """
+
     dataPath = args.dataPath
     dataPrefix = args.dataPrefix
     useCoALBP = args.CoALBP
@@ -49,6 +63,20 @@ def modeGen(args):
 
 
 def modeTune(args):
+    """Mode used for tuning (ie finding the best model parameters) the SVM
+    using a grid search. Tuning results are printed to a console and to
+    a log file (if specifies in parameters). The SVM is then saved to a file
+    for later use (if specifies in parameters)
+
+    The parameters that are required in commandline arguments are: dataPath,
+    dataPrefix, kernel
+
+    The optional parameters are: modelPath, method, log
+
+    Args:
+        args: The parsed command line arguments
+    """
+
     # TODO: Loading with 4-fold CV (if _train/_test files don't exist, check _all)
 
     dataPath = args.dataPath
@@ -77,6 +105,19 @@ def modeTune(args):
 
 
 def modeTrain(args):
+    """Mode used for training an SVM with given parameters. Training results
+    are printed to a console. The SVM is then saved to a file for later use
+    (if specifies in parameters)
+
+    The parameters that are required in commandline arguments are: dataPath,
+    dataPrefix, kernel, C, gamma
+
+    The optional parameters are: modelPath, method, verbose
+
+    Args:
+        args: The parsed command line arguments
+    """
+
     # TODO: Loading with 4-fold CV (if _train/_test files don't exist, check _all)
 
     dataPath = args.dataPath
@@ -113,6 +154,16 @@ def modeTrain(args):
 
 
 def modeClass(args):
+    """Mode used for classifing images using a previously trained SVM. Classification
+    results are diplayed with calculated probabilities.
+
+    The parameters that are required in commandline arguments are: photoPath,
+    modelPath
+
+    Args:
+        args: The parsed command line arguments
+    """
+
     methodDict = {
         "Maatta" : (maattaHistogram, True),
         "HSV" : (lambda img: colorspaceHistogram(img, space="HSV"), False),
